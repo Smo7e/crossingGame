@@ -1,3 +1,4 @@
+import { useState, useReducer, useEffect } from "react";
 import Human from "./Human";
 export enum ERole {
     F1 = "f1",
@@ -9,31 +10,31 @@ export enum ERole {
     EMPTY = "empty",
 }
 const Game = () => {
-    const leftCoastArr: ERole[] = [
+    const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+
+    const [leftCoastArr, setLeftCoast] = useState<ERole[]>([
         ERole.F1,
         ERole.D1,
         ERole.F2,
         ERole.D2,
         ERole.F3,
         ERole.D3,
-    ];
-    const rightCoastArr: ERole[] = [
+    ]);
+    const [rightCoastArr, setRightCoastArr] = useState<ERole[]>([
         ERole.EMPTY,
         ERole.EMPTY,
         ERole.EMPTY,
         ERole.EMPTY,
         ERole.EMPTY,
         ERole.EMPTY,
-    ];
-    const boatArr: ERole[] = [ERole.EMPTY, ERole.EMPTY];
+    ]);
+    const [boatArr, setBoatArr] = useState<ERole[]>([ERole.EMPTY, ERole.EMPTY]);
+    let [boatPosition, setBoatPosition] = useState<boolean>(false);
 
-    let boatPosition: number = 0;
-    const go = (result: ERole): void => {
-        //67 - лодка
-        // if (mainArr[6] === ERole.EMPTY && mainArr[7] === ERole.EMPTY) {
-        //   console.log("в лодке никого нету");
-        //   return;
-        // }
+    const go = (): void => {
+        boatPosition = !boatPosition;
+        console.log(boatPosition);
+        forceUpdate();
     };
     const swap = (name: ERole): void => {
         let freePosition: number = 0;
@@ -48,6 +49,7 @@ const Game = () => {
                 leftCoastArr[freePosition] = name;
                 boatArr[currentboatPosition] = ERole.EMPTY;
             } else {
+                console.log("win");
                 rightCoastArr.forEach((elem, index) => {
                     if (elem === ERole.EMPTY) {
                         freePosition = index;
@@ -63,16 +65,17 @@ const Game = () => {
             const freePosition: number = boatArr[0] === ERole.EMPTY ? 0 : 1;
             let currentArr: ERole[] = [ERole.EMPTY];
             let indexElem = 0;
-            leftCoastArr.forEach((elem, index) => {
-                if (elem === name) {
-                    currentArr = leftCoastArr;
-                    indexElem = index;
-                }
-            });
-            if (!currentArr) {
-                rightCoastArr.forEach((elem, index) => {
+            if (!boatPosition) {
+                leftCoastArr.forEach((elem, index) => {
                     if (elem === name) {
                         currentArr = leftCoastArr;
+                        indexElem = index;
+                    }
+                });
+            } else {
+                rightCoastArr.forEach((elem, index) => {
+                    if (elem === name) {
+                        currentArr = rightCoastArr;
                         indexElem = index;
                     }
                 });
@@ -81,6 +84,7 @@ const Game = () => {
             boatArr[freePosition] = name;
             currentArr[indexElem] = ERole.EMPTY;
         }
+        forceUpdate();
 
         consoleResult();
     };
@@ -89,13 +93,51 @@ const Game = () => {
     };
     return (
         <>
-            <div style={{ display: "flex", width: 500, height: 500 }}>
-                <Human name={ERole.F1} swap={swap} />
-                <Human name={ERole.F2} swap={swap} />
-                <Human name={ERole.F3} swap={swap} />
-                <Human name={ERole.D1} swap={swap} />
-                <Human name={ERole.D2} swap={swap} />
-                <Human name={ERole.D3} swap={swap} />
+            <button onClick={() => {}}> test</button>
+            <div>
+                <p>Левый берег</p>
+                <div style={{ display: "flex" }}>
+                    {leftCoastArr.map((elem, index) => {
+                        return elem !== ERole.EMPTY ? (
+                            <Human
+                                name={elem}
+                                swap={swap}
+                                key={Math.random() + index}
+                            />
+                        ) : (
+                            <></>
+                        );
+                    })}
+                </div>
+            </div>
+            <div>
+                <p>Лодка</p>
+                <button onClick={() => go()}>Переправить лодку</button>
+                <div style={{ display: "flex" }}>
+                    {boatArr.map((elem, index) => {
+                        return elem !== ERole.EMPTY ? (
+                            <Human
+                                name={elem}
+                                swap={swap}
+                                key={Math.random() + index}
+                            />
+                        ) : (
+                            <></>
+                        );
+                    })}
+                </div>
+            </div>
+            <div>
+                <p>Правый берег</p>
+                <div style={{ display: "flex" }}>
+                    {rightCoastArr.map((elem, index) => {
+                        return elem !== ERole.EMPTY ? (
+                            <Human name={elem} swap={swap} key={index} />
+                        ) : (
+                            <></>
+                        );
+                    })}
+                </div>
             </div>
         </>
     );
