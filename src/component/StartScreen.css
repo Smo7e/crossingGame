@@ -1,0 +1,63 @@
+.start-screen-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Занять всю высоту экрана */
+    background-color: #f0f0f0; /* Светлый фон */
+    color: #333; /* Темный цвет текста */
+    text-align: center; /* Центрирование текста */
+    padding: 20px; /* Отступы */
+}
+
+.start-title {
+    font-size: 2.5rem; /* Размер шрифта заголовка */
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+.rules {
+    font-size: 1.2rem; /* Размер шрифта для правил */
+    margin-bottom: 30px; /* Отступ снизу */
+}
+
+.start-button {
+    padding: 15px 30px; /* Отступ внутри кнопки */
+    font-size: 1.5rem; /* Размер шрифта для кнопки */
+    color: white; /* Цвет текста кнопки */
+    background-color: #007bff; /* Цвет фона кнопки */
+    border: none; /* Убираем границу */
+    border-radius: 5px; /* Закругленные углы кнопки */
+    cursor: pointer; /* Курсор при наведении */
+    transition: background-color 0.3s; /* Плавный переход цвета */
+    margin-bottom: 30px; /* Отступ снизу */
+}
+
+.start-button:hover {
+    background-color: #0056b3; /* Цвет кнопки при наведении */
+}
+
+.leaderboard-title {
+    font-size: 2rem; /* Размер шрифта заголовка таблицы лидеров */
+    margin-bottom: 10px; /* Отступ снизу */
+}
+
+.leaderboard {
+    width: 80%; /* Ширина таблицы */
+    margin: 0 auto; /* Центрирование таблицы */
+    border-collapse: collapse; /* Убираем двойные границы */
+}
+
+.leaderboard th,
+.leaderboard td {
+    border: 1px solid #ddd; /* Граница ячеек */
+    padding: 10px; /* Отступ внутри ячеек */
+}
+
+.leaderboard th {
+    background-color: #007bff; /* Цвет фона заголовков таблицы */
+    color: white; /* Цвет текста заголовков */
+}
+
+.leaderboard tr:nth-child(even) {
+    background-color: #f2f2f2; /* Цвет фона для четных строк */
+}

@@ -1,14 +1,24 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import Game from "./component/Game";
+import React, { useState } from "react";
+import StartScreen from "./component/StartScreen";
+import Game from "./component/Game"; // Ваш компонент игры
+const App = () => {
+    const [isGameStarted, setIsGameStarted] = useState(false);
 
-function App() {
-  return (
-    <div className="App">
-      <Game />
-    </div>
-  );
-}
+    const handleStartGame = () => {
+        setIsGameStarted(true);
+    };
+
+    return (
+        <div>
+            {!isGameStarted ? (
+                <StartScreen onStartGame={handleStartGame} />
+            ) : (
+                <div className="App">
+                    <Game />
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default App;

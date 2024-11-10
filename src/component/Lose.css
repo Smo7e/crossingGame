@@ -1,0 +1,41 @@
+.lose-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh; /* Занять всю высоту экрана */
+    width: 50vw;
+    background-color: rgba(255, 0, 0, 0.5); /* Полупрозрачный красный фон */
+    color: white; /* Цвет текста */
+    text-align: center; /* Центрирование текста */
+    border-radius: 10px; /* Закругленные углы */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Тень */
+    left: 25vw;
+    top: 25vh;
+}
+
+.lose-title {
+    font-size: 3rem; /* Размер шрифта для заголовка */
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+.lose-buttons {
+    display: flex;
+    gap: 10px; /* Отступ между кнопками */
+}
+
+.lose-button {
+    padding: 10px 20px; /* Отступ внутри кнопки */
+    font-size: 1.2rem; /* Размер шрифта для кнопок */
+    color: white; /* Цвет текста кнопок */
+    background-color: #dc3545; /* Цвет фона кнопок */
+    border: none; /* Убираем границу */
+    border-radius: 5px; /* Закругленные углы кнопок */
+    cursor: pointer; /* Курсор при наведении */
+    transition: background-color 0.3s; /* Плавный переход цвета */
+}
+
+.lose-button:hover {
+    background-color: #c82333; /* Цвет кнопки при наведении */
+}
