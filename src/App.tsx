@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import StartScreen from "./component/StartScreen";
-//import Game from "./component/Game"; // Ваш компонент игры
+import Game from "./component/Game"; // Ваш компонент игры
 import Test from "./component/Test";
 const App = () => {
     const [isGameStarted, setIsGameStarted] = useState(false);
@@ -11,15 +11,15 @@ const App = () => {
 
     return (
         <div>
-            <Test />
+            {/* <Test /> */}
 
-            {/* {!isGameStarted ? (
+            {!isGameStarted ? (
                 <StartScreen onStartGame={handleStartGame} />
             ) : (
                 <div className="App">
                     <Game />
                 </div>
-            )} */}
+            )}
         </div>
     );
 };
