@@ -1,0 +1,209 @@
+/* Основные стили для сцены */
+
+.scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -100;
+}
+
+/* Небо */
+.sky {
+    position: absolute;
+    background-image: url(./background0.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    /* background: #87ceeb; Светло-голубой цвет для неба */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+/* Солнце */
+.sun {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10vw;
+    height: 10vw;
+    background: radial-gradient(circle, #ffcc00, #ff9900, #ff6600);
+    border-radius: 50%;
+    box-shadow: 0 0 50px 30px rgba(255, 204, 0, 0.6), 0 0 100px 60px rgba(255, 204, 0, 0.4);
+    animation: sun-glow 30s infinite alternate;
+}
+@keyframes sun-glow {
+    0% {
+        box-shadow: 0 0 50px 30px rgba(255, 204, 0, 0.1), 0 0 100px 60px rgba(255, 204, 0, 0.1);
+    }
+    100% {
+        box-shadow: 0 0 80px 40px rgba(255, 204, 0, 0.2), 0 0 300px 300px rgba(255, 204, 0, 0.2);
+    }
+}
+
+/* Река */
+.river {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 0;
+}
+
+/* Правый берег */
+.left-bank {
+    background-size: 80%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30vw; /* Занимает 25% ширины */
+    height: 100%;
+    background-image: url("./landscape.png"); /* URL вашего изображения */
+    background-position: center;
+    z-index: 1; /* Позиционирование на фоне */
+}
+
+/* Правый берег */
+.right-bank {
+    background-size: 80%;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30vw; /* Занимает 25% ширины */
+    height: 100%;
+    background-image: url("./landscape.png"); /* URL вашего изображения */
+    background-position: center;
+    z-index: 1; /* Позиционирование на фоне */
+}
+
+/* Река (вода) */
+.water {
+    position: relative;
+    width: 100vw;
+    height: 100%;
+    background: #4682b4; /* Цвет воды */
+    border-radius: 0 0 10px 10px;
+}
+
+/* Стили для контейнера облаков */
+.clouds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Общее оформление облаков */
+.cloud {
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    animation: move-clouds 6s linear infinite;
+    background: transparent;
+}
+
+/* Использование изображения облаков */
+.cloud-1 {
+    background: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 10vw;
+    height: 10vh;
+    top: 10%;
+    left: 0;
+    background-image: url("./cloud.png"); /* URL изображения облака */
+    animation-duration: 50s;
+}
+.cloud-2 {
+    background: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 10vw;
+    height: 10vh;
+    top: 15%;
+    left: 0;
+    background-image: url("./cloud.png"); /* URL изображения облака */
+    animation-duration: 70s;
+}
+.cloud-3 {
+    background: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20vw;
+    height: 20vw;
+    top: 5%;
+    left: 0;
+    background-image: url("./cloud.png"); /* URL изображения облака */
+    animation-duration: 90s;
+}
+.cloud-4 {
+    background: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20vw;
+    height: 20vw;
+    top: 10%;
+    left: 0;
+    background-image: url("./cloud.png"); /* URL изображения облака */
+    animation-duration: 140s;
+}
+
+/* Анимация для движения облаков */
+@keyframes move-clouds {
+    0% {
+        transform: translateX(-20vw); /* Начало облака слева */
+    }
+    100% {
+        transform: translateX(120vw); /* Конец облака справа */
+    }
+}
+/* Стили для контейнера с ландшафтом */
+.landscape {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden; /* Скрывает элементы, выходящие за пределы контейнера */
+}
+
+/* Стили для деревьев */
+.tree {
+    background: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("./three1.png");
+    position: absolute;
+    width: 20vw; /* Размер дерева */
+    height: 100px;
+    z-index: 20;
+}
+.boat {
+    position: absolute;
+    z-index: 10; /* Задать приоритет отображения лодки */
+}
+
+/* Стили для изображения лодки (гифка) */
+.boat-image {
+    /* background-image: url("./boat.gif"); */
+
+    width: 13vw;
+    transform: scale(-1, 1);
+}

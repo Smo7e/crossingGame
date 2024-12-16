@@ -2,6 +2,8 @@ import React, { useState, useReducer } from "react";
 import Human from "./Human";
 import Lose from "./Lose";
 import Win from "./Win";
+import "./boat.gif";
+import { relative } from "path";
 export enum ERole {
     F1 = "f1",
     D1 = "d1",
@@ -23,28 +25,23 @@ export interface IPerson {
 }
 
 export const positionHuman = {
-    leftBank: [0, 15, 30, 45, 60, 75],
-    leftBoat: [300, 400],
-    rightBoat: [600, 700],
-    rightBank: [
-        1000,
-        1015,
-        1030,
-        1045,
-        1060,
-        Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) - 100,
-    ],
+    leftBank: [0, 0.05, 0.1, 0.15, 0.2, 0.25].map((percent) => percent * window.innerWidth),
+    leftBoat: [0.3, 0.35].map((percent) => percent * window.innerWidth),
+    rightBoat: [0.6, 0.65].map((percent) => percent * window.innerWidth),
+    rightBank: [0.7, 0.75, 0.8, 0.85, 0.9, 0.95].map((percent) => percent * window.innerWidth),
 };
 const Game: React.FC = () => {
+    const [isGoBoat, setIsGoBoat] = useState<boolean>(false);
+
     const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
     const [stateGame, setStateGame] = useState<EResultGame>(EResultGame.PLAYING);
     const [leftCoastArr, setLeftCoast] = useState<IPerson[]>([
-        { id: 1, name: ERole.F1, positionX: 0 },
-        { id: 2, name: ERole.D1, positionX: 15 },
-        { id: 3, name: ERole.F2, positionX: 30 },
-        { id: 4, name: ERole.D2, positionX: 45 },
-        { id: 5, name: ERole.F3, positionX: 60 },
-        { id: 6, name: ERole.D3, positionX: 75 },
+        { id: 1, name: ERole.F1, positionX: positionHuman.leftBank[0] },
+        { id: 2, name: ERole.D1, positionX: positionHuman.leftBank[1] },
+        { id: 3, name: ERole.F2, positionX: positionHuman.leftBank[2] },
+        { id: 4, name: ERole.D2, positionX: positionHuman.leftBank[3] },
+        { id: 5, name: ERole.F3, positionX: positionHuman.leftBank[4] },
+        { id: 6, name: ERole.D3, positionX: positionHuman.leftBank[5] },
     ]);
     const [rightCoastArr, setRightCoastArr] = useState<IPerson[]>([
         { id: 1, name: ERole.EMPTY, positionX: 0 },
@@ -82,7 +79,7 @@ const Game: React.FC = () => {
                 el.positionX = positionHuman.leftBoat[index];
             }
         });
-        console.log(boatArr);
+        setIsGoBoat(true);
         forceUpdate();
     };
     const checkResult = (persons: IPerson[]) => {
@@ -168,6 +165,9 @@ const Game: React.FC = () => {
 
         //consoleResult();
     };
+    const goBoat = () => {
+        return 1;
+    };
     const consoleResult = () => {
         console.log(leftCoastArr, boatArr, rightCoastArr);
     };
@@ -207,48 +207,42 @@ const Game: React.FC = () => {
             )}
 
             <div>
-                <p>Левый берег</p>
                 <div style={{ display: "flex" }}>
                     {leftCoastArr
                         .concat(rightCoastArr)
                         .concat(boatArr)
                         .map((elem, index) => {
-                            return elem.name !== ERole.EMPTY ? (
-                                <Human person={elem} swap={swap} key={elem.id + elem.name} />
+                            return elem.name != ERole.EMPTY ? (
+                                <Human
+                                    person={elem}
+                                    swap={swap}
+                                    key={`${elem.id}-${elem.name}`}
+                                    goBoat={goBoat}
+                                    isGoBoat={isGoBoat}
+                                />
                             ) : (
-                                <></>
+                                <div key={`${elem.id}-${elem.name}-${index}`} />
                             );
                         })}
+                </div>
+                <div>
+                    {/* Лодка с гифкой */}
+                    <div className="boat">
+                        <img
+                            src={require("./boat.gif")}
+                            className="boat-image"
+                            style={{
+                                position: "relative",
+                                left: "30vw",
+                                top: "65vh",
+                            }}
+                        />
+                    </div>
                 </div>
                 <button onClick={() => go()} style={{ position: "absolute", bottom: 100 }}>
                     Переправить лодку
                 </button>
             </div>
-            {/* <div>
-                <p>Лодка</p>
-                {boatPosition ? <>Справа</> : <>Слева</>}
-                <div style={{ display: "flex" }}>
-                    {boatArr.map((elem, index) => {
-                        return elem.name !== ERole.EMPTY ? (
-                            <Human person={elem} swap={swap} key={} />
-                        ) : (
-                            <></>
-                        );
-                    })}
-                </div>
-            </div> */}
-            {/* <div>
-                <p>Правый берег</p>
-                <div style={{ display: "flex" }}>
-                    {rightCoastArr.map((elem, index) => {
-                        return elem.name !== ERole.EMPTY ? (
-                            <Human person={elem} swap={swap} key={Math.random() + index} />
-                        ) : (
-                            <></>
-                        );
-                    })}
-                </div>
-            </div> */}
         </>
     );
 };
