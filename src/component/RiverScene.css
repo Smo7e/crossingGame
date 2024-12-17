@@ -36,7 +36,7 @@
     background: radial-gradient(circle, #ffcc00, #ff9900, #ff6600);
     border-radius: 50%;
     box-shadow: 0 0 50px 30px rgba(255, 204, 0, 0.6), 0 0 100px 60px rgba(255, 204, 0, 0.4);
-    animation: sun-glow 30s infinite alternate;
+    animation: sun-glow 5s infinite alternate;
 }
 @keyframes sun-glow {
     0% {
@@ -204,6 +204,6 @@
 .boat-image {
     /* background-image: url("./boat.gif"); */
 
-    width: 13vw;
+    width: 14vw;
     transform: scale(-1, 1);
 }

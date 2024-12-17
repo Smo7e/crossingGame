@@ -1,4 +1,4 @@
-import { ERole } from "../../../component/Game";
+import { ERole } from "../../../component";
 import daughter1 from "./images/daughter1.png";
 import daughter2 from "./images/daughter2.png";
 import daughter3 from "./images/daughter3.png";
