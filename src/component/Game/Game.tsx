@@ -1,37 +1,28 @@
 import React, { useState, useReducer, useEffect, useRef } from "react";
-import Human from "./Human";
-import Lose from "./Lose";
-import Win from "./Win";
-import "./boat.gif";
-import "./Game.css";
-import Boat from "./Boat";
-import { getDefaultLeftCoastArr, getDefaultEmptyBoad, getDefaultEmptyArr, positionHuman } from ".";
-import { ERole } from ".";
-import GameTimer from "./GameTimer";
-export enum EResultGame {
-    WIN,
-    LOSE,
-    PLAYING,
-}
-export interface IPerson {
-    id: number;
-    name: ERole;
-    positionX: number;
-    canSwim: boolean;
-}
 
-export interface IIsGoBoat {
-    isGo: boolean;
-    goLeft: boolean;
-    needPosition: number;
-}
-const Game: React.FC = () => {
+import Human from "./component/Human/Human";
+import Lose from "./component/ResultGame/Lose";
+import Win from "./component/ResultGame/Win";
+import Boat from "./component/Boat/Boat";
+import GameTimer, { IGameStats } from "./component/GamerTimer/GameTimer";
+
+import {
+    getDefaultLeftCoastArr,
+    getDefaultEmptyBoad,
+    getDefaultEmptyArr,
+    positionHuman,
+    IIsGoBoat,
+    EResultGame,
+    IPerson,
+    getDefaultIsGoBoat,
+} from ".";
+import { ERole } from ".";
+
+import "./Game.css";
+
+const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
     const gameTimerRef = useRef<any>(null);
-    const [isGoBoat, setIsGoBoat] = useState<IIsGoBoat>({
-        isGo: false,
-        goLeft: false,
-        needPosition: positionHuman.leftBoat[0],
-    });
+    const [isGoBoat, setIsGoBoat] = useState<IIsGoBoat>(getDefaultIsGoBoat());
 
     const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
     const [stateGame, setStateGame] = useState<EResultGame>(EResultGame.PLAYING);
@@ -39,6 +30,7 @@ const Game: React.FC = () => {
     const [rightCoastArr, setRightCoastArr] = useState<IPerson[]>(getDefaultEmptyArr());
     const [boatArr, setBoatArr] = useState<IPerson[]>(getDefaultEmptyBoad());
     let [boatPosition, setBoatPosition] = useState<boolean>(false);
+    const [forceTpPersons, setforceTpPersons] = useState(false);
 
     const go = (): void => {
         makeMove();
@@ -50,27 +42,16 @@ const Game: React.FC = () => {
                 .concat(rightCoastArr)
                 .filter((el) => el.name != ERole.EMPTY && el.canSwim === true).length !== 6
         ) {
-            console.log(
-                leftCoastArr
-                    .concat(boatArr)
-                    .concat(rightCoastArr)
-                    .filter((el) => el.name != ERole.EMPTY && el.canSwim === true).length === 6
-            );
             return;
         }
-        console.log(
-            leftCoastArr
-                .concat(boatArr)
-                .concat(rightCoastArr)
-                .filter((el) => el.name != ERole.EMPTY && el.canSwim === true)
-        );
+
         isGoBoat.isGo = true;
+        isGoBoat.goLeft = !isGoBoat.goLeft;
 
         const newBoatPosition = !boatPosition;
 
         const arrLeft = !newBoatPosition ? leftCoastArr.concat(boatArr) : leftCoastArr;
         const arrRight = newBoatPosition ? rightCoastArr.concat(boatArr) : rightCoastArr;
-        consoleResult();
         checkResult(arrLeft);
         checkResult(arrRight);
 
@@ -167,25 +148,41 @@ const Game: React.FC = () => {
                 });
             }
         }
+        if (rightCoastArr.filter((el) => el.name != ERole.EMPTY).length === 6) {
+            setStateGame(EResultGame.WIN);
+        }
         forceUpdate();
-        return null;
 
-        //consoleResult();
+        return null;
     };
     useEffect(() => {
-        window.addEventListener("resize", () => {
+        const handleResize = () => {
             updatePositionsBeforeResize();
-            console.log(2);
-        });
+            isGoBoat.needPosition = !isGoBoat.goLeft
+                ? positionHuman.leftBoat[0]
+                : positionHuman.rightBank[0] - window.innerWidth * 0.15;
+            forceUpdate();
+        };
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     });
 
-    const consoleResult = () => {};
     const restartGame = () => {
         setStateGame(EResultGame.PLAYING);
-        setBoatPosition(false);
+        resetData();
+        setforceTpPersons(true);
+
         setLeftCoast(getDefaultLeftCoastArr());
         setRightCoastArr(getDefaultEmptyArr());
         setBoatArr(getDefaultEmptyBoad());
+
+        setIsGoBoat(getDefaultIsGoBoat());
+        setBoatPosition(false);
+        setTimeout(() => {
+            setforceTpPersons(false);
+        }, 500);
     };
     const updatePositionsBeforeResize = () => {
         leftCoastArr.forEach((person, index) => {
@@ -202,21 +199,28 @@ const Game: React.FC = () => {
 
         boatArr.forEach((person, index) => {
             if (person.name !== ERole.EMPTY) {
-                person.positionX = boatPosition ? positionHuman.leftBoat[index] : positionHuman.rightBoat[index];
+                person.positionX = !boatPosition ? positionHuman.leftBoat[index] : positionHuman.rightBoat[index];
             }
         });
     };
     const makeMove = () => {
-        console.log(22);
         if (gameTimerRef.current) {
             gameTimerRef.current.incrementMoves();
         }
     };
 
-    const getStats = () => {
+    const getStats = (): IGameStats => {
         if (gameTimerRef.current) {
-            const stats = gameTimerRef.current.getGameStats();
-            console.log(stats);
+            return gameTimerRef.current.getGameStats();
+        }
+        return {
+            moves: 0,
+            time: 0,
+        };
+    };
+    const resetData = () => {
+        if (gameTimerRef.current) {
+            gameTimerRef.current.resetData();
         }
     };
     return (
@@ -226,8 +230,9 @@ const Game: React.FC = () => {
             ) : stateGame === EResultGame.LOSE ? (
                 <Lose onRestart={restartGame} />
             ) : (
-                <Win onRestart={restartGame} />
+                <Win gameStats={getStats()} onRestart={restartGame} />
             )}
+
             <div>
                 <div style={{ display: "flex" }}>
                     {leftCoastArr
@@ -235,7 +240,13 @@ const Game: React.FC = () => {
                         .concat(boatArr)
                         .map((elem, index) => {
                             return elem.name != ERole.EMPTY ? (
-                                <Human person={elem} swap={swap} key={`${elem.id}-${elem.name}`} isGoBoat={isGoBoat} />
+                                <Human
+                                    forceTpPersons={forceTpPersons}
+                                    person={elem}
+                                    swap={swap}
+                                    key={`${elem.id}-${elem.name}`}
+                                    isGoBoat={isGoBoat}
+                                />
                             ) : (
                                 <div key={`${elem.id}-${elem.name}-${index}`} />
                             );
@@ -248,6 +259,26 @@ const Game: React.FC = () => {
             </div>
             <Boat isGoBoat={isGoBoat} />
             <GameTimer ref={gameTimerRef} />
+            <button
+                onClick={() => onStartGame(false)}
+                style={{
+                    position: "absolute",
+                    top: "10px",
+                    right: "10px",
+                    padding: "10px 20px",
+                    backgroundColor: "#007bff",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    fontSize: "16px",
+                }}
+            >
+                Главное меню
+            </button>
+            {/* <button onClick={() => setStateGame(EResultGame.WIN)} style={{ marginLeft: 300 }}>
+                peins
+            </button> */}
         </>
     );
 };

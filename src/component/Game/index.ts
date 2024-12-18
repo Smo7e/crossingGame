@@ -7,6 +7,23 @@ export enum ERole {
     D3 = "d3",
     EMPTY = "empty",
 }
+export enum EResultGame {
+    WIN,
+    LOSE,
+    PLAYING,
+}
+export interface IPerson {
+    id: number;
+    name: ERole;
+    positionX: number;
+    canSwim: boolean;
+}
+
+export interface IIsGoBoat {
+    isGo: boolean;
+    goLeft: boolean;
+    needPosition: number;
+}
 export let positionHuman = {
     leftBank: [0, 0.05, 0.1, 0.15, 0.2, 0.25].map((percent) => percent * window.innerWidth),
     leftBoat: [0.3, 0.35].map((percent) => percent * window.innerWidth),
@@ -47,4 +64,11 @@ export const getDefaultEmptyBoad = () => {
         { id: 1, name: ERole.EMPTY, positionX: 0, canSwim: true },
         { id: 2, name: ERole.EMPTY, positionX: 0, canSwim: true },
     ];
+};
+export const getDefaultIsGoBoat = () => {
+    return {
+        isGo: false,
+        goLeft: false,
+        needPosition: positionHuman.leftBoat[0],
+    };
 };

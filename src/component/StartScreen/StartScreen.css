@@ -2,12 +2,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh; /* Занять всю высоту экрана */
-    background-color: #f0f0f0; /* Светлый фон */
-    color: #333; /* Темный цвет текста */
-    text-align: center; /* Центрирование текста */
-    padding: 20px; /* Отступы */
+    background-image: url("./image/fon.jpg");
+    background-repeat: repeat;
+    background-size: cover;
+    height: 100vh;
+    color: #000000; /* Темный цвет текста */
 }
 
 .start-title {
@@ -20,7 +19,8 @@
     margin-bottom: 30px; /* Отступ снизу */
 }
 
-.start-button {
+.start-button,
+.leaderbord-button {
     padding: 15px 30px; /* Отступ внутри кнопки */
     font-size: 1.5rem; /* Размер шрифта для кнопки */
     color: white; /* Цвет текста кнопки */
@@ -30,6 +30,10 @@
     cursor: pointer; /* Курсор при наведении */
     transition: background-color 0.3s; /* Плавный переход цвета */
     margin-bottom: 30px; /* Отступ снизу */
+}
+.leaderbord-button {
+    background-color: #22aa61; /* Цвет фона кнопки */
+    margin-left: 2vw;
 }
 
 .start-button:hover {

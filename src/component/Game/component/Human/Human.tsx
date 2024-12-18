@@ -1,15 +1,16 @@
-import { IIsGoBoat, IPerson } from "./Game";
+import { IIsGoBoat, IPerson } from "../../index";
 import { memo, useEffect, useState } from "react";
-import { ERole, positionHuman } from ".";
-import useSprites, { ISpriteData } from "../module/hooks/useSprites/useSprites";
+import { ERole, positionHuman } from "../..";
+import useSprites, { ISpriteData } from "../../../../module/hooks/useSprites/useSprites";
 
 interface IHumanProps {
+    forceTpPersons: boolean;
     person: IPerson;
     swap: Function;
     isGoBoat: IIsGoBoat;
 }
 
-const Human: React.FC<IHumanProps> = memo(({ person, swap, isGoBoat }) => {
+const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoBoat }) => {
     const [leftOnRightWalk, setLeftOnRightWalk] = useState<boolean>(false);
     const [correctX, setCorrectX] = useState<number>(person.positionX);
     const [activeSprite, setActiveSprite] = useState(0);
@@ -33,6 +34,8 @@ const Human: React.FC<IHumanProps> = memo(({ person, swap, isGoBoat }) => {
         }
     };
     const calc = (interval1: any) => {
+        if (forceTpPersons) setCorrectX(person.positionX);
+
         const eps = 5;
         setCountFrame(countFrame + 1);
         if (Math.abs(correctX - person.positionX) <= eps) {
@@ -60,7 +63,6 @@ const Human: React.FC<IHumanProps> = memo(({ person, swap, isGoBoat }) => {
     };
 
     useEffect(() => {
-        console.log(1111);
         const interval1 = setInterval(() => {
             calc(interval1);
             goBoat();
@@ -70,6 +72,7 @@ const Human: React.FC<IHumanProps> = memo(({ person, swap, isGoBoat }) => {
             clearInterval(interval1);
         };
     }, [person.positionX, correctX]);
+    const res = (window.innerWidth * 0.05) / 64;
     return (
         <>
             <div
@@ -80,12 +83,13 @@ const Human: React.FC<IHumanProps> = memo(({ person, swap, isGoBoat }) => {
                     top: "70vh",
                     scale: 100,
                     transform: `scale(${leftOnRightWalk ? 1 : -1}, 1)`,
-                    width: `${currentSprites[currentSprites.length == 1 ? 0 : activeSprite].width}px`,
-                    height: `${currentSprites[currentSprites.length == 1 ? 0 : activeSprite].height}px`,
+                    width: `${currentSprites[currentSprites.length == 1 ? 0 : activeSprite].width * res}px`,
+                    height: `${currentSprites[currentSprites.length == 1 ? 0 : activeSprite].height * res}px`,
                     backgroundImage: `url(${spriteImage})`,
-                    backgroundPosition: `${-currentSprites[currentSprites.length == 1 ? 0 : activeSprite]
-                        .x}px ${-currentSprites[currentSprites.length == 1 ? 0 : activeSprite].y}px`,
-                    backgroundSize: "832px 1344px",
+                    backgroundPosition: `${-currentSprites[currentSprites.length == 1 ? 0 : activeSprite].x * res}px ${
+                        -currentSprites[currentSprites.length == 1 ? 0 : activeSprite].y * res
+                    }px`,
+                    backgroundSize: `${832 * res}px ${1344 * res}px`,
                     zIndex: 100,
                 }}
             />

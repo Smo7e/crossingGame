@@ -1,14 +1,18 @@
 .win-container {
+    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh; /* Занять всю высоту экрана */
-    background-color: rgba(0, 128, 0, 0.8); /* Полупрозрачный зеленый фон */
+    height: 50vh; /* Занять всю высоту экрана */
+    width: 50vw;
+    background-color: rgba(18, 226, 18, 0.5); /* Полупрозрачный красный фон */
     color: white; /* Цвет текста */
     text-align: center; /* Центрирование текста */
     border-radius: 10px; /* Закругленные углы */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Тень */
+    left: 25vw;
+    top: 25vh;
 }
 
 .win-title {

@@ -1,5 +1,3 @@
-/* Основные стили для сцены */
-
 .scene {
     position: relative;
     width: 100%;
@@ -8,17 +6,15 @@
     z-index: -100;
 }
 
-/* Небо */
 .sky {
     position: absolute;
-    background-image: url(./background0.png);
+    background-image: url(./image/background0.png);
     background-size: cover;
     background-repeat: no-repeat;
     top: 0;
     left: 0;
     width: 100%;
     height: 50%;
-    /* background: #87ceeb; Светло-голубой цвет для неба */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,7 +64,7 @@
     left: 0;
     width: 30vw; /* Занимает 25% ширины */
     height: 100%;
-    background-image: url("./landscape.png"); /* URL вашего изображения */
+    background-image: url("./image/landscape.png"); /* URL вашего изображения */
     background-position: center;
     z-index: 1; /* Позиционирование на фоне */
 }
@@ -82,7 +78,7 @@
     right: 0;
     width: 30vw; /* Занимает 25% ширины */
     height: 100%;
-    background-image: url("./landscape.png"); /* URL вашего изображения */
+    background-image: url("./image/landscape.png"); /* URL вашего изображения */
     background-position: center;
     z-index: 1; /* Позиционирование на фоне */
 }
@@ -128,7 +124,7 @@
     height: 10vh;
     top: 10%;
     left: 0;
-    background-image: url("./cloud.png"); /* URL изображения облака */
+    background-image: url("./image/cloud.png"); /* URL изображения облака */
     animation-duration: 50s;
 }
 .cloud-2 {
@@ -139,7 +135,7 @@
     height: 10vh;
     top: 15%;
     left: 0;
-    background-image: url("./cloud.png"); /* URL изображения облака */
+    background-image: url("./image/cloud.png"); /* URL изображения облака */
     animation-duration: 70s;
 }
 .cloud-3 {
@@ -150,7 +146,7 @@
     height: 20vw;
     top: 5%;
     left: 0;
-    background-image: url("./cloud.png"); /* URL изображения облака */
+    background-image: url("./image/cloud.png"); /* URL изображения облака */
     animation-duration: 90s;
 }
 .cloud-4 {
@@ -161,7 +157,7 @@
     height: 20vw;
     top: 10%;
     left: 0;
-    background-image: url("./cloud.png"); /* URL изображения облака */
+    background-image: url("./image/cloud.png"); /* URL изображения облака */
     animation-duration: 140s;
 }
 
@@ -189,21 +185,9 @@
     background: transparent;
     background-size: contain;
     background-repeat: no-repeat;
-    background-image: url("./three1.png");
+    background-image: url("./image/three1.png");
     position: absolute;
     width: 20vw; /* Размер дерева */
     height: 100px;
     z-index: 20;
-}
-.boat {
-    position: absolute;
-    z-index: 10; /* Задать приоритет отображения лодки */
-}
-
-/* Стили для изображения лодки (гифка) */
-.boat-image {
-    /* background-image: url("./boat.gif"); */
-
-    width: 14vw;
-    transform: scale(-1, 1);
 }

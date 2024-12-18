@@ -1,0 +1,10 @@
+.boat {
+    position: absolute;
+    z-index: 10; /* Задать приоритет отображения лодки */
+}
+
+.boat-image {
+    width: 14vw;
+    height: 14vw;
+    transform: scale(-1, 1);
+}

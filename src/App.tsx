@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import StartScreen from "./component/StartScreen";
-import Game from "./component/Game"; // Ваш компонент игры
-import Test from "./component/Test";
-import RiverScene from "./component/RiverScene";
+import StartScreen from "./component/StartScreen/StartScreen";
+import Game from "./component/Game/Game"; // Ваш компонент игры
+import RiverScene from "./component/Game/component/RiverScene/RiverScene";
+import MusicPlayer from "./component/MusicPlayer/MusicPlayer";
 const App = () => {
     const [isGameStarted, setIsGameStarted] = useState(false);
 
@@ -12,14 +12,13 @@ const App = () => {
 
     return (
         <div>
-            {/* <Test /> */}
-
             {!isGameStarted ? (
                 <StartScreen onStartGame={handleStartGame} />
             ) : (
                 <div className="App">
-                    <Game />
+                    <Game onStartGame={setIsGameStarted} />
                     <RiverScene />
+                    <MusicPlayer />
                 </div>
             )}
         </div>
