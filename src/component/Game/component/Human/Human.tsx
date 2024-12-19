@@ -1,7 +1,7 @@
 import { IIsGoBoat, IPerson } from "../../index";
 import { memo, useEffect, useState } from "react";
 import { ERole, positionHuman } from "../..";
-import useSprites, { ISpriteData } from "../../../../module/hooks/useSprites/useSprites";
+import useSprites from "../../../../module/hooks/useSprites/useSprites";
 
 interface IHumanProps {
     forceTpPersons: boolean;
@@ -13,10 +13,8 @@ interface IHumanProps {
 const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoBoat }) => {
     const [leftOnRightWalk, setLeftOnRightWalk] = useState<boolean>(false);
     const [correctX, setCorrectX] = useState<number>(person.positionX);
-    const [activeSprite, setActiveSprite] = useState(0);
-    const [spriteImage, spriteData, stand]: [string, ISpriteData[], ISpriteData[]] = useSprites(person.name);
-    const [currentSprites, setCurrentSprite] = useState(useSprites(person.name)[2]);
-    const [countFrame, setCountFrame] = useState(0);
+    const [stand, spriteGif]: string[] = useSprites(person.name);
+    const [currentSprites, setCurrentSprite] = useState(stand);
     const asd = () => {
         swap(person);
     };
@@ -37,7 +35,6 @@ const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoB
         if (forceTpPersons) setCorrectX(person.positionX);
 
         const eps = 5;
-        setCountFrame(countFrame + 1);
         if (Math.abs(correctX - person.positionX) <= eps) {
             isGoBoat.isGo = false;
             person.canSwim = true;
@@ -45,7 +42,7 @@ const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoB
             clearInterval(interval1);
         } else {
             if (!isGoBoat.isGo) {
-                setCurrentSprite(spriteData);
+                setCurrentSprite(spriteGif);
             }
 
             if (correctX < person.positionX) {
@@ -53,12 +50,8 @@ const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoB
                 setCorrectX((prevCorrectX) => prevCorrectX + eps);
             } else {
                 setLeftOnRightWalk(false);
-
                 setCorrectX((prevCorrectX) => prevCorrectX - eps);
             }
-        }
-        if (countFrame % 5 === 0) {
-            setActiveSprite((prevActiveSprite) => (prevActiveSprite + 1) % currentSprites.length);
         }
     };
 
@@ -72,25 +65,21 @@ const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoB
             clearInterval(interval1);
         };
     }, [person.positionX, correctX]);
-    const res = (window.innerWidth * 0.05) / 64;
+
     return (
         <>
-            <div
+            <img
+                className="noselect"
+                src={currentSprites}
                 onClick={asd}
                 style={{
                     position: "fixed",
                     left: correctX,
                     top: "70vh",
-                    scale: 100,
-                    transform: `scale(${leftOnRightWalk ? 1 : -1}, 1)`,
-                    width: `${currentSprites[currentSprites.length == 1 ? 0 : activeSprite].width * res}px`,
-                    height: `${currentSprites[currentSprites.length == 1 ? 0 : activeSprite].height * res}px`,
-                    backgroundImage: `url(${spriteImage})`,
-                    backgroundPosition: `${-currentSprites[currentSprites.length == 1 ? 0 : activeSprite].x * res}px ${
-                        -currentSprites[currentSprites.length == 1 ? 0 : activeSprite].y * res
-                    }px`,
-                    backgroundSize: `${832 * res}px ${1344 * res}px`,
                     zIndex: 100,
+                    transform: `scale(${leftOnRightWalk ? 1 : -1}, 1)`,
+                    height: "5vw",
+                    width: "5vw",
                 }}
             />
         </>

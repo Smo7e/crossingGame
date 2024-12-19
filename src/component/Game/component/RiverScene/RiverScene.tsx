@@ -4,26 +4,26 @@ const RiverScene: React.FC = () => {
     function getRandomNumber(a: number, b: number) {
         return Math.floor(Math.random() * (b - a + 1)) + a;
     }
-    const threesCount = 30;
+    const threesCount = 50;
     const trees = [];
     for (let i = 0; i < threesCount; i++) {
-        const top = getRandomNumber(40, 65);
+        const top = getRandomNumber(48, 60);
         const left = getRandomNumber(-10, 20);
         trees.push({ top, left });
     }
     for (let i = 0; i < threesCount; i++) {
-        const top = getRandomNumber(80, 100);
+        const top = getRandomNumber(80, 98);
         const left = getRandomNumber(-10, 20);
         trees.push({ top, left });
     }
     for (let i = 0; i < threesCount; i++) {
-        const top = getRandomNumber(40, 65);
-        const left = getRandomNumber(65, 100);
+        const top = getRandomNumber(48, 65);
+        const left = getRandomNumber(65, 98);
         trees.push({ top, left });
     }
     for (let i = 0; i < threesCount; i++) {
         const top = getRandomNumber(80, 100);
-        const left = getRandomNumber(65, 100);
+        const left = getRandomNumber(65, 98);
         trees.push({ top, left });
     }
 

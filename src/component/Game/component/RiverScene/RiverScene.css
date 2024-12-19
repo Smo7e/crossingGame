@@ -186,8 +186,8 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-image: url("./image/three1.png");
-    position: absolute;
-    width: 20vw; /* Размер дерева */
-    height: 100px;
+    position: fixed;
+    width: 15vw; /* Размер дерева */
+    height: 15vh;
     z-index: 20;
 }

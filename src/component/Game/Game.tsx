@@ -158,9 +158,16 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
     useEffect(() => {
         const handleResize = () => {
             updatePositionsBeforeResize();
+
             isGoBoat.needPosition = !isGoBoat.goLeft
                 ? positionHuman.leftBoat[0]
                 : positionHuman.rightBank[0] - window.innerWidth * 0.15;
+
+            setforceTpPersons(true);
+
+            setTimeout(() => {
+                setforceTpPersons(false);
+            }, 500);
             forceUpdate();
         };
         window.addEventListener("resize", handleResize);
@@ -172,7 +179,6 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
     const restartGame = () => {
         setStateGame(EResultGame.PLAYING);
         resetData();
-        setforceTpPersons(true);
 
         setLeftCoast(getDefaultLeftCoastArr());
         setRightCoastArr(getDefaultEmptyArr());
@@ -180,6 +186,8 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
 
         setIsGoBoat(getDefaultIsGoBoat());
         setBoatPosition(false);
+        setforceTpPersons(true);
+
         setTimeout(() => {
             setforceTpPersons(false);
         }, 500);
@@ -253,7 +261,7 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
                         })}
                 </div>
 
-                <button onClick={() => go()} className="button-49">
+                <button onClick={() => go()} className="button-49" style={{ zIndex: 50 }}>
                     Переправить лодку
                 </button>
             </div>

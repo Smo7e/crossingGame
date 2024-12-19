@@ -57,7 +57,7 @@ const GameTimer = forwardRef((_, ref) => {
     }));
 
     return (
-        <div style={{ position: "absolute" }}>
+        <div style={{ position: "absolute" }} className="noselect">
             <p>Moves: {moves}</p>
             <p>Time: {formatTime(elapsedTime)}</p>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./ChipiChipi.mp3";
+
 const MusicPlayer: React.FC = () => {
     const audioRef = useRef<HTMLAudioElement>(null);
     const [isPlaying, setIsPlaying] = useState(true);
@@ -25,10 +26,11 @@ const MusicPlayer: React.FC = () => {
 
     return (
         <div style={{ position: "absolute", width: "5vw", height: "5vh", right: "5vw", top: "10vh" }}>
-            <audio ref={audioRef} src={require("./ChipiChipi.mp3")} />
+            <audio ref={audioRef} src={require("./ChipiChipi.mp3")} loop />
 
             <button
                 onClick={togglePlayPause}
+                className="noselect"
                 style={{
                     backgroundColor: isPlaying ? "red" : "green",
                     color: "white",
