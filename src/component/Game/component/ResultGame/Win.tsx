@@ -11,9 +11,7 @@ interface IWinProps {
 const Win: React.FC<IWinProps> = ({ gameStats, onRestart }) => {
     const [name, setName] = useState(""); // Состояние для имени игрока
     const [isNameEntered, setIsNameEntered] = useState(false); // Проверка, введено ли имя
-    console.log(gameStats.time);
     useEffect(() => {
-        // Когда имя введено, сохраняем в таблицу лидеров
         if (isNameEntered) {
             saveToLeaderboard(gameStats.time, gameStats.moves, name);
         }

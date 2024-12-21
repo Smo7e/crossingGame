@@ -20,7 +20,7 @@ const MusicPlayer: React.FC = () => {
     useEffect(() => {
         if (audioRef.current) {
             audioRef.current.volume = volume;
-            audioRef.current.play();
+            //audioRef.current.play();
         }
     }, [volume]);
 

@@ -31,7 +31,7 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
     const [boatArr, setBoatArr] = useState<IPerson[]>(getDefaultEmptyBoad());
     let [boatPosition, setBoatPosition] = useState<boolean>(false);
     const [forceTpPersons, setforceTpPersons] = useState(false);
-
+    useEffect(() => {}, [isGoBoat.needPosition]);
     const go = (): void => {
         makeMove();
 
@@ -158,11 +158,13 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
     useEffect(() => {
         const handleResize = () => {
             updatePositionsBeforeResize();
-
-            isGoBoat.needPosition = !isGoBoat.goLeft
-                ? positionHuman.leftBoat[0]
-                : positionHuman.rightBank[0] - window.innerWidth * 0.15;
-
+            setIsGoBoat({
+                ...isGoBoat,
+                needPosition: !isGoBoat.goLeft
+                    ? positionHuman.leftBoat[0]
+                    : positionHuman.rightBank[0] - window.innerWidth * 0.15,
+                isGo: true,
+            });
             setforceTpPersons(true);
 
             setTimeout(() => {
@@ -254,6 +256,7 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
                                     swap={swap}
                                     key={`${elem.id}-${elem.name}`}
                                     isGoBoat={isGoBoat}
+                                    setIsGoBoat={setIsGoBoat}
                                 />
                             ) : (
                                 <div key={`${elem.id}-${elem.name}-${index}`} />
