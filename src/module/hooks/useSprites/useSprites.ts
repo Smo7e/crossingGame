@@ -1,33 +1,28 @@
 import { ERole } from "../../../component/Game";
 
-import Guman from "./images/Guman.png";
-import Human from "./images/Human.png";
-import GumanGif from "./images/Guman.gif";
-import HumanGif from "./images/Human.gif";
+import father from "./images/Father.png";
+import son1 from "./images/Son1.png";
+import son2 from "./images/Son2.png";
+
+import fatherGif from "./images/Father.gif";
+import son1Gif from "./images/Son1.gif";
+import son2Gif from "./images/Son2.gif";
 
 const useSprites = (name: ERole): string[] => {
     let resultSprite;
     switch (name) {
-        case ERole.H1:
-            resultSprite = [Human, HumanGif];
+        case ERole.F:
+            resultSprite = [father, fatherGif];
             break;
-        case ERole.H2:
-            resultSprite = [Human, HumanGif];
+        case ERole.S1:
+            resultSprite = [son1, son1Gif];
             break;
-        case ERole.H3:
-            resultSprite = [Human, HumanGif];
+        case ERole.S2:
+            resultSprite = [son2, son2Gif];
             break;
-        case ERole.G1:
-            resultSprite = [Guman, GumanGif];
-            break;
-        case ERole.G2:
-            resultSprite = [Guman, GumanGif];
-            break;
-        case ERole.G3:
-            resultSprite = [Guman, GumanGif];
-            break;
+
         default:
-            resultSprite = [Guman, GumanGif];
+            resultSprite = [son2, son1Gif];
             break;
     }
 

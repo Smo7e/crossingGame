@@ -1,11 +1,13 @@
 .boat {
     position: absolute;
-    z-index: 10; /* Задать приоритет отображения лодки */
+    z-index: -10000; /* Задать приоритет отображения лодки */
 }
 
 .boat-image {
     margin-top: 10px;
     width: 15vw;
-    height: 7vw;
+    height: 10vw;
+    z-index: -10000; /* Задать приоритет отображения лодки */
+
     transform: scale(-1, 1);
 }

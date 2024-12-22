@@ -1,49 +1,51 @@
 .button-49 {
+    background-image: url("./image/go.png");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
     position: absolute;
-    left: 50%;
-    top: 80vh;
+    left: 45%;
+    top: 0;
     height: 7vw;
     width: 7vw;
-    background-color: red;
-    color: white;
+    background-color: transparent;
     text-align: center;
     text-decoration: none;
     display: block;
     font-size: 2vw;
     cursor: pointer;
-    border-radius: 50%;
-    border: 3px, solid, rgb(123, 8, 8);
-}
-.button-49:hover {
-    border: 3px, solid, rgb(255, 255, 255);
-    background-color: rgb(255, 255, 255);
-    color: red;
+    border: none;
 }
 
 .go-main-menu {
     position: absolute;
-    left: 30%;
-    top: 80vh;
+    background-image: url("../StartScreen/image/back.png");
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+
+    left: 0;
+    top: 0;
     height: 7vw;
     width: 7vw;
-    background-color: red;
-    color: white;
+    color: black;
     text-align: center;
     text-decoration: none;
     display: block;
     font-size: 2vw;
     cursor: pointer;
-    border-radius: 50%;
-    border: 3px, solid, rgb(123, 8, 8);
+    border: none;
 }
 .restart-game {
     position: absolute;
-    left: 40%;
-    top: 80vh;
+    left: 6vw;
+    top: 0;
     height: 7vw;
     width: 7vw;
-    background-color: red;
+    background-color: transparent;
     background-image: url("./image/restart.png");
+    filter: invert(100%);
     background-size: 70%;
     background-position: center;
     background-repeat: no-repeat;
@@ -53,24 +55,22 @@
     display: block;
     font-size: 2vw;
     cursor: pointer;
-    border-radius: 50%;
-    border: 3px solid rgb(123, 8, 8);
+    border: none;
 }
 .music-player {
     position: absolute;
-    left: 60%;
-    top: 80vh;
+    left: 14%;
+    top: 0;
     height: 7vw;
     width: 7vw;
-    background-color: red;
+    background-color: transparent;
     background-position: center;
     background-repeat: no-repeat;
-    color: white;
     text-align: center;
     text-decoration: none;
     display: block;
     font-size: 2vw;
+    filter: invert(100%);
     cursor: pointer;
-    border-radius: 50%;
-    border: 3px solid rgb(123, 8, 8);
+    border: none;
 }

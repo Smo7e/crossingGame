@@ -40,8 +40,9 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
             leftCoastArr
                 .concat(boatArr)
                 .concat(rightCoastArr)
-                .filter((el) => el.name != ERole.EMPTY && el.canSwim === true).length !== 6
+                .filter((el) => el.name != ERole.EMPTY && el.canSwim === true).length !== 3
         ) {
+            console.log(1);
             return;
         }
 
@@ -49,12 +50,6 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
         isGoBoat.goLeft = !isGoBoat.goLeft;
 
         const newBoatPosition = !boatPosition;
-
-        const arrLeft = !newBoatPosition ? leftCoastArr.concat(boatArr) : leftCoastArr;
-        const arrRight = newBoatPosition ? rightCoastArr.concat(boatArr) : rightCoastArr;
-        checkResult(arrLeft);
-        checkResult(arrRight);
-
         setBoatPosition(newBoatPosition);
 
         boatArr.map((el, index) => {
@@ -66,16 +61,23 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
         });
         forceUpdate();
     };
-    const checkResult = (persons: IPerson[]) => {
-        const countGuman = persons.filter(
-            (el) => el.name === ERole.G1 || el.name === ERole.G2 || el.name === ERole.G3
-        ).length;
-        const countHuman = persons.filter(
-            (el) => el.name === ERole.H1 || el.name === ERole.H2 || el.name === ERole.H3
-        ).length;
-        if (countGuman > countHuman && countHuman > 0) {
+    const checkResult = () => {
+        let count = 0;
+        boatArr
+            .filter((el) => el.name != ERole.EMPTY)
+            .forEach((el) => {
+                if (el.name === ERole.F) {
+                    count += 2;
+                } else {
+                    count++;
+                }
+            });
+        if (count > 2) {
             setStateGame(EResultGame.LOSE);
         }
+        // if (countGuman > countHuman && countHuman > 0) {
+        //     setStateGame(EResultGame.LOSE);
+        // }
     };
     const swap = (person: IPerson): any => {
         if (stateGame === EResultGame.LOSE || stateGame === EResultGame.WIN) return;
@@ -140,9 +142,10 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
                 });
             }
         }
-        if (rightCoastArr.filter((el) => el.name != ERole.EMPTY).length === 6) {
+        if (rightCoastArr.filter((el) => el.name != ERole.EMPTY).length === 3) {
             setStateGame(EResultGame.WIN);
         }
+        checkResult();
         forceUpdate();
 
         return null;
@@ -261,9 +264,7 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
             <button onClick={() => go()} className="button-49" style={{ zIndex: 50 }}>
                 GO
             </button>
-            <button onClick={() => onStartGame(false)} className="go-main-menu">
-                {`←`}
-            </button>
+            <button onClick={() => onStartGame(false)} className="go-main-menu"></button>
             <button
                 className="restart-game"
                 onClick={() => {

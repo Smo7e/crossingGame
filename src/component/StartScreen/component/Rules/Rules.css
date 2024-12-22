@@ -2,12 +2,11 @@
     text-align: center;
     color: white;
     border-radius: 1vw;
-    background-color: #fa7763;
     margin: 0 auto; /* Центрирование таблицы */
     border-collapse: collapse; /* Убираем двойные границы */
-    position: relative;
-    top: 40vh;
-    left: 0px;
+    position: absolute;
+    bottom: 0vh;
+    left: 10vw;
     width: 80vw; /* Размер по содержимому */
     height: fit-content; /* Размер по содержимому */
     font-size: 2.3vw;

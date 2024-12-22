@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import CrossingText from "../CrossingText/CrossingText";
 
 interface LeaderboardProps {
     onClose: Function;
@@ -122,15 +121,6 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ onClose }) => {
             <div className="leaderboard">
                 <div style={{ width: "100%", textAlign: "center", fontSize: "3vw" }}>Таблица лидеров</div>
                 <table>
-                    <thead>
-                        <tr>
-                            <th>№</th>
-                            <th>Имя</th>
-                            <th>Время (сек)</th>
-                            <th>Ходы</th>
-                            <th>Дата</th>
-                        </tr>
-                    </thead>
                     <tbody>
                         {leaderboard.map((entry, index) => (
                             <tr key={index}>
@@ -146,8 +136,6 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ onClose }) => {
             </div>
             <button className="leaderbord-button-back" onClick={() => onClose(false)}></button>
             <button className="leaderbord-button-delete" onClick={clearLeaderboard}></button>
-
-            <CrossingText position={{ top: 2, left: 20 }} />
         </>
     );
 };

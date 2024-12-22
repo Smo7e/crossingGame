@@ -10,35 +10,37 @@
 }
 
 .start-title {
-    font-size: 2.5rem; /* Размер шрифта заголовка */
-    margin-bottom: 20px; /* Отступ снизу */
+    position: relative;
+    top: 10vh;
+    left: 25vw;
+    display: block;
+    height: fit-content;
+    width: fit-content;
+    padding-left: 3vw;
+    padding-right: 3vw;
+
+    font-size: 6vw;
+    color: white;
+    background-color: black;
 }
 
 .start-button,
-.leaderbord-button,
-.rules-button {
+.leaderbord-button {
+    text-align: center;
     position: relative;
-    top: 33vh;
+    top: 20vh;
+    left: 25vw;
     display: block;
     height: 10vh;
-    width: 33vw;
+    width: 50vw;
     padding: 15px 30px; /* Отступ внутри кнопки */
-    font-size: 3vw;
+    font-size: 5vw;
     color: white; /* Цвет текста кнопки */
-    background-color: #fa7763; /* Цвет фона кнопки */
     border: none; /* Убираем границу */
-    border-radius: 10vh; /* Закругленные углы кнопки */
     cursor: pointer; /* Курсор при наведении */
-    transition: background-color 0.3s; /* Плавный переход цвета */
-    margin-bottom: 30px; /* Отступ снизу */
-}
-.start-button {
-    color: #3ce2bc;
-    font-size: 3.5vw;
-}
-
-.start-button:hover {
-    background-color: #0056b3; /* Цвет кнопки при наведении */
+    margin-bottom: 10vh; /* Отступ снизу */
+    background-color: transparent;
+    text-shadow: 1px 1px 0 red, -1px 1px 0 red, 1px -1px 0 red, -1px -1px 0 red;
 }
 
 .leaderboard-title {
@@ -47,6 +49,8 @@
 }
 
 .leaderboard {
+    text-shadow: 1px 1px 0 red, -1px 1px 0 red, 1px -1px 0 red, -1px -1px 0 red;
+    color: white;
     border-radius: 1vw;
     background-color: #fa7763;
     margin: 0 auto; /* Центрирование таблицы */
@@ -66,11 +70,9 @@
     text-align: center;
     align-items: center;
     color: white;
+    background-color: transparent;
 }
 
-.leaderboard th {
-    color: red; /* Цвет текста заголовков */
-}
 .leaderbord-button-back {
     background-image: url("./image//back.png");
     background-size: contain;

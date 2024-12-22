@@ -5,15 +5,16 @@
     align-items: center;
     justify-content: center;
     width: 60vw;
+    height: 20vw;
     background-color: rgba(255, 0, 0, 1); /* Полупрозрачный красный фон */
     color: white; /* Цвет текста */
     text-align: center; /* Центрирование текста */
     border-radius: 10px; /* Закругленные углы */
     left: 25vw;
     top: 25vh;
-    transform: rotate(20deg);
     z-index: 999999;
     font-size: 6vw;
+    opacity: 0.7;
 }
 
 .lose-title {

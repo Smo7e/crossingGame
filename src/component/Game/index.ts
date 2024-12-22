@@ -1,11 +1,7 @@
 export enum ERole {
-    H1,
-    H2,
-    H3,
-    G1,
-    G2,
-    G3,
-
+    F,
+    S1,
+    S2,
     EMPTY,
 }
 export enum EResultGame {
@@ -26,28 +22,25 @@ export interface IIsGoBoat {
     needPosition: number;
 }
 export let positionHuman = {
-    leftBank: [0, 0.05, 0.1, 0.15, 0.2, 0.25].map((percent) => percent * window.innerWidth),
-    leftBoat: [0.3, 0.35].map((percent) => percent * window.innerWidth),
-    rightBoat: [0.55, 0.6].map((percent) => percent * window.innerWidth),
-    rightBank: [0.7, 0.75, 0.8, 0.85, 0.9, 0.95].map((percent) => percent * window.innerWidth),
+    leftBank: [0, 0.05, 0.1].map((percent) => percent * window.innerWidth),
+    leftBoat: [0.25, 0.3].map((percent) => percent * window.innerWidth),
+    rightBoat: [0.7, 0.75].map((percent) => percent * window.innerWidth),
+    rightBank: [0.75, 0.75, 0.75, 0.85, 0.9, 0.95].map((percent) => percent * window.innerWidth),
 };
 window.addEventListener("resize", () => {
     positionHuman = {
-        leftBank: [0, 0.05, 0.1, 0.15, 0.2, 0.25].map((percent) => percent * window.innerWidth),
-        leftBoat: [0.3, 0.35].map((percent) => percent * window.innerWidth),
-        rightBoat: [0.55, 0.6].map((percent) => percent * window.innerWidth),
-        rightBank: [0.7, 0.75, 0.8, 0.85, 0.9, 0.95].map((percent) => percent * window.innerWidth),
+        leftBank: [0, 0.05, 0.1].map((percent) => percent * window.innerWidth),
+        leftBoat: [0.25, 0.3].map((percent) => percent * window.innerWidth),
+        rightBoat: [0.7, 0.75].map((percent) => percent * window.innerWidth),
+        rightBank: [0.75, 0.75, 0.75, 0.85, 0.9, 0.95].map((percent) => percent * window.innerWidth),
     };
 });
 
 export const getDefaultLeftCoastArr = () => {
     return [
-        { id: 1, name: ERole.G1, positionX: positionHuman.leftBank[0], canSwim: true },
-        { id: 2, name: ERole.G2, positionX: positionHuman.leftBank[1], canSwim: true },
-        { id: 3, name: ERole.G3, positionX: positionHuman.leftBank[2], canSwim: true },
-        { id: 4, name: ERole.H1, positionX: positionHuman.leftBank[3], canSwim: true },
-        { id: 5, name: ERole.H2, positionX: positionHuman.leftBank[4], canSwim: true },
-        { id: 6, name: ERole.H3, positionX: positionHuman.leftBank[5], canSwim: true },
+        { id: 1, name: ERole.F, positionX: positionHuman.leftBank[0], canSwim: true },
+        { id: 2, name: ERole.S1, positionX: positionHuman.leftBank[1], canSwim: true },
+        { id: 3, name: ERole.S2, positionX: positionHuman.leftBank[2], canSwim: true },
     ];
 };
 export const getDefaultEmptyArr = () => {

@@ -30,17 +30,15 @@ const RiverScene: React.FC = () => {
     return (
         <div className="scene">
             {/* Небо */}
-            <div className="sky">
-                {/* Солнце */}
-                {/* <div className="sun"></div> */}
-            </div>
+            <img src={require("./image/background0.png")} className="sky"></img>
+            {/* <div className="sun"></div> */}
 
             {/* Река */}
-            <div className="river">
+            {/* <div className="river">
                 <div className="left-bank"></div>
                 <div className="water"></div>
                 <div className="right-bank"></div>
-            </div>
+            </div> */}
             <div className="clouds">
                 <div className="cloud cloud-1"></div>
                 <div className="cloud cloud-2"></div>

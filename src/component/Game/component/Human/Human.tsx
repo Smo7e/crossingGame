@@ -86,8 +86,8 @@ const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoB
                 style={{
                     position: "fixed",
                     left: correctX,
-                    top: "65vh",
-                    zIndex: 100,
+                    top: "75vh",
+                    zIndex: 1000,
                     transform: `scale(${!leftOnRightWalk ? 1 : -1}, 1)`,
                     height: "5vw",
                     width: "5vw",

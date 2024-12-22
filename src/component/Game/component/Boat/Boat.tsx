@@ -58,7 +58,7 @@ const Boat: React.FC<IBoatProps> = ({ isGoBoat }) => {
             style={{
                 position: "absolute",
                 left: `${boatPosition}px`,
-                top: "65vh",
+                top: "75vh",
                 zIndex: 200,
                 pointerEvents: "none",
             }}

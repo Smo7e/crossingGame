@@ -23,7 +23,7 @@ const Win: React.FC<IWinProps> = ({ gameStats, onRestart }) => {
 
     const handleNameSubmit = () => {
         if (name.trim() === "") {
-            alert("Пожалуйста, введите ваше имя!");
+            alert("Введите ваше имя!");
         } else {
             setIsNameEntered(true);
         }
@@ -31,11 +31,33 @@ const Win: React.FC<IWinProps> = ({ gameStats, onRestart }) => {
 
     return (
         <div className="win-container">
-            Выигрыш!
+            ПОБЕДА! ПОБЕДА! ВМЕСТО ОБЕДА!
             {!isNameEntered ? (
-                <div className="">
-                    <input type="text" value={name} onChange={handleNameChange} placeholder="Введите ваше имя" />
-                    <button className="" onClick={handleNameSubmit}>
+                <div style={{ fontSize: "2vw" }}>
+                    Ваше имя:
+                    <input
+                        style={{
+                            height: "1.4vw",
+                            textAlign: "center",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            display: "flex",
+                            fontSize: "1.4vw",
+                        }}
+                        type="text"
+                        value={name}
+                        onChange={handleNameChange}
+                    />
+                    <button
+                        style={{
+                            border: "2px solid ",
+                            borderRadius: "2vw",
+                            backgroundColor: "lightgreen",
+                            height: "2vw",
+                            fontSize: "1.4vw",
+                        }}
+                        onClick={handleNameSubmit}
+                    >
                         Сохранить и продолжить
                     </button>
                 </div>
