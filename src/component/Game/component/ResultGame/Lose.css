@@ -4,13 +4,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 60vw;
-    height: 20vw;
+    width: fit-content;
+    height: fit-content;
     background-color: rgba(255, 0, 0, 1); /* Полупрозрачный красный фон */
     color: white; /* Цвет текста */
     text-align: center; /* Центрирование текста */
     border-radius: 10px; /* Закругленные углы */
-    left: 25vw;
+    width: 60vw;
+    left: 20vw;
     top: 25vh;
     z-index: 999999;
     font-size: 6vw;

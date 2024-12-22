@@ -4,11 +4,7 @@ interface ILoseProps {
     onRestart: Function;
 }
 const Lose: React.FC<ILoseProps> = ({ onRestart }) => {
-    return (
-        <div className="lose-container">
-            <h1 className="lose-title">Лодка перевесила допустимый вес. Попробуйте начать сначала.</h1>
-        </div>
-    );
+    return <div className="lose-container">Лодка перевесила допустимый вес. Попробуйте начать сначала.</div>;
 };
 
 export default Lose;
