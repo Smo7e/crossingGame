@@ -1,44 +1,33 @@
 import { ERole } from "../../../component/Game";
-import daughter1 from "./images/daughter1.gif";
-import daughter2 from "./images/daughter2.gif";
-import daughter3 from "./images/daughter3.gif";
 
-import father1 from "./images/father1.gif";
-import father2 from "./images/father2.gif";
-import father3 from "./images/father3.gif";
-
-import standDaughter1 from "./images/daughter1.png";
-import standDaughter2 from "./images/daughter2.png";
-import standDaughter3 from "./images/daughter3.png";
-
-import standFather1 from "./images/father1.png";
-import standFather2 from "./images/father2.png";
-import standFather3 from "./images/father3.png";
+import Guman from "./images/Guman.png";
+import Human from "./images/Human.png";
+import GumanGif from "./images/Guman.gif";
+import HumanGif from "./images/Human.gif";
 
 const useSprites = (name: ERole): string[] => {
     let resultSprite;
     switch (name) {
-        case ERole.D1:
-            resultSprite = [standDaughter1, daughter1];
+        case ERole.H1:
+            resultSprite = [Human, HumanGif];
             break;
-        case ERole.D2:
-            resultSprite = [standDaughter2, daughter2];
+        case ERole.H2:
+            resultSprite = [Human, HumanGif];
             break;
-        case ERole.D3:
-            resultSprite = [standDaughter3, daughter3];
+        case ERole.H3:
+            resultSprite = [Human, HumanGif];
             break;
-        case ERole.F1:
-            resultSprite = [standFather1, father1];
+        case ERole.G1:
+            resultSprite = [Guman, GumanGif];
             break;
-        case ERole.F2:
-            resultSprite = [standFather2, father2];
+        case ERole.G2:
+            resultSprite = [Guman, GumanGif];
             break;
-        case ERole.F3:
-            resultSprite = [standFather3, father3];
+        case ERole.G3:
+            resultSprite = [Guman, GumanGif];
             break;
-
         default:
-            resultSprite = [standFather1, father1];
+            resultSprite = [Guman, GumanGif];
             break;
     }
 

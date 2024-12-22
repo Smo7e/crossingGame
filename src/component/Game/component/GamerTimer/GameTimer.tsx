@@ -57,9 +57,23 @@ const GameTimer = forwardRef((_, ref) => {
     }));
 
     return (
-        <div style={{ position: "absolute" }} className="noselect">
-            <p>Moves: {moves}</p>
-            <p>Time: {formatTime(elapsedTime)}</p>
+        <div
+            style={{
+                position: "absolute",
+                left: "50%",
+                textAlign: "center",
+                backgroundColor: "#fff",
+                borderRadius: "10px",
+                padding: "5px",
+                top: "5px",
+                transform: "translateX(-50%)",
+                opacity: 0.5,
+                color: "blue",
+            }}
+            className="noselect"
+        >
+            <p>Ходы: {moves}</p>
+            <p>Время: {formatTime(elapsedTime)}</p>
         </div>
     );
 });

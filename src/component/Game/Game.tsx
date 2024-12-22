@@ -67,26 +67,18 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
         forceUpdate();
     };
     const checkResult = (persons: IPerson[]) => {
-        persons.forEach((elem) => {
-            if (elem.name[0] === "d") {
-                const constructedValue = `f${elem.name[1]}`;
-                const arrFathers = persons.filter((el) => {
-                    return el.name[0] === "f";
-                });
-                if (
-                    arrFathers.filter((el) => {
-                        return el.name != constructedValue;
-                    }).length > 0 &&
-                    !arrFathers.find((el) => {
-                        return el.name === constructedValue;
-                    })
-                ) {
-                    setStateGame(EResultGame.LOSE);
-                }
-            }
-        });
+        const countGuman = persons.filter(
+            (el) => el.name === ERole.G1 || el.name === ERole.G2 || el.name === ERole.G3
+        ).length;
+        const countHuman = persons.filter(
+            (el) => el.name === ERole.H1 || el.name === ERole.H2 || el.name === ERole.H3
+        ).length;
+        if (countGuman > countHuman && countHuman > 0) {
+            setStateGame(EResultGame.LOSE);
+        }
     };
     const swap = (person: IPerson): any => {
+        if (stateGame === EResultGame.LOSE || stateGame === EResultGame.WIN) return;
         makeMove();
         const resultPosition = 0;
         let freePosition: number = 0;
@@ -185,8 +177,8 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
         setLeftCoast(getDefaultLeftCoastArr());
         setRightCoastArr(getDefaultEmptyArr());
         setBoatArr(getDefaultEmptyBoad());
+        setIsGoBoat({ ...getDefaultIsGoBoat(), isGo: true });
 
-        setIsGoBoat(getDefaultIsGoBoat());
         setBoatPosition(false);
         setforceTpPersons(true);
 
@@ -263,33 +255,21 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
                             );
                         })}
                 </div>
-
-                <button onClick={() => go()} className="button-49" style={{ zIndex: 50 }}>
-                    Переправить лодку
-                </button>
             </div>
             <Boat isGoBoat={isGoBoat} />
             <GameTimer ref={gameTimerRef} />
-            <button
-                onClick={() => onStartGame(false)}
-                style={{
-                    position: "absolute",
-                    top: "10px",
-                    right: "10px",
-                    padding: "10px 20px",
-                    backgroundColor: "#007bff",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                    fontSize: "16px",
-                }}
-            >
-                Главное меню
+            <button onClick={() => go()} className="button-49" style={{ zIndex: 50 }}>
+                GO
             </button>
-            {/* <button onClick={() => setStateGame(EResultGame.WIN)} style={{ marginLeft: 300 }}>
-                peins
-            </button> */}
+            <button onClick={() => onStartGame(false)} className="go-main-menu">
+                {`←`}
+            </button>
+            <button
+                className="restart-game"
+                onClick={() => {
+                    restartGame();
+                }}
+            ></button>
         </>
     );
 };

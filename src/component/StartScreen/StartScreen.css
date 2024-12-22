@@ -1,9 +1,9 @@
 .start-screen-container {
-    display: flex;
+    display: block;
     flex-direction: column;
     align-items: center;
     background-image: url("./image/fon.jpg");
-    background-repeat: repeat;
+    background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
     color: #000000; /* Темный цвет текста */
@@ -14,26 +14,27 @@
     margin-bottom: 20px; /* Отступ снизу */
 }
 
-.rules {
-    font-size: 1.2rem; /* Размер шрифта для правил */
-    margin-bottom: 30px; /* Отступ снизу */
-}
-
 .start-button,
-.leaderbord-button {
+.leaderbord-button,
+.rules-button {
+    position: relative;
+    top: 33vh;
+    display: block;
+    height: 10vh;
+    width: 33vw;
     padding: 15px 30px; /* Отступ внутри кнопки */
-    font-size: 1.5rem; /* Размер шрифта для кнопки */
+    font-size: 3vw;
     color: white; /* Цвет текста кнопки */
-    background-color: #007bff; /* Цвет фона кнопки */
+    background-color: #fa7763; /* Цвет фона кнопки */
     border: none; /* Убираем границу */
-    border-radius: 5px; /* Закругленные углы кнопки */
+    border-radius: 10vh; /* Закругленные углы кнопки */
     cursor: pointer; /* Курсор при наведении */
     transition: background-color 0.3s; /* Плавный переход цвета */
     margin-bottom: 30px; /* Отступ снизу */
 }
-.leaderbord-button {
-    background-color: #22aa61; /* Цвет фона кнопки */
-    margin-left: 2vw;
+.start-button {
+    color: #3ce2bc;
+    font-size: 3.5vw;
 }
 
 .start-button:hover {
@@ -46,22 +47,51 @@
 }
 
 .leaderboard {
-    width: 80%; /* Ширина таблицы */
+    border-radius: 1vw;
+    background-color: #fa7763;
     margin: 0 auto; /* Центрирование таблицы */
     border-collapse: collapse; /* Убираем двойные границы */
+    position: relative;
+    top: 40vh;
+    left: 0px;
+    width: fit-content; /* Размер по содержимому */
+    height: fit-content; /* Размер по содержимому */
+    font-size: 1vw;
 }
 
 .leaderboard th,
 .leaderboard td {
-    border: 1px solid #ddd; /* Граница ячеек */
     padding: 10px; /* Отступ внутри ячеек */
+    width: auto;
+    text-align: center;
+    align-items: center;
+    color: white;
 }
 
 .leaderboard th {
-    background-color: #007bff; /* Цвет фона заголовков таблицы */
-    color: white; /* Цвет текста заголовков */
+    color: red; /* Цвет текста заголовков */
 }
-
-.leaderboard tr:nth-child(even) {
-    background-color: #f2f2f2; /* Цвет фона для четных строк */
+.leaderbord-button-back {
+    background-image: url("./image//back.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5vw;
+    height: 5vw;
+}
+.leaderbord-button-delete {
+    background-image: url("./image/delete.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    left: 5vw;
+    top: 1vw;
+    width: 7vw;
+    height: 7vw;
 }

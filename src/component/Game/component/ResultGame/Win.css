@@ -4,15 +4,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 50vh; /* Занять всю высоту экрана */
-    width: 50vw;
-    background-color: rgba(18, 226, 18, 0.5); /* Полупрозрачный красный фон */
+    width: 60vw;
+    background-color: rgb(30, 236, 15); /* Полупрозрачный красный фон */
     color: white; /* Цвет текста */
     text-align: center; /* Центрирование текста */
     border-radius: 10px; /* Закругленные углы */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Тень */
     left: 25vw;
     top: 25vh;
+    transform: rotate(20deg);
+    z-index: 999999;
+    font-size: 6vw;
 }
 
 .win-title {

@@ -25,32 +25,22 @@ const Win: React.FC<IWinProps> = ({ gameStats, onRestart }) => {
         if (name.trim() === "") {
             alert("Пожалуйста, введите ваше имя!");
         } else {
-            setIsNameEntered(true); // Устанавливаем, что имя введено
+            setIsNameEntered(true);
         }
     };
 
     return (
         <div className="win-container">
-            <h1 className="win-title">Победа!</h1>
+            Выигрыш!
             {!isNameEntered ? (
-                <div className="name-input-container">
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={handleNameChange}
-                        placeholder="Введите ваше имя"
-                        className="name-input"
-                    />
-                    <button className="win-button" onClick={handleNameSubmit}>
+                <div className="">
+                    <input type="text" value={name} onChange={handleNameChange} placeholder="Введите ваше имя" />
+                    <button className="" onClick={handleNameSubmit}>
                         Сохранить и продолжить
                     </button>
                 </div>
             ) : (
-                <div className="win-buttons">
-                    <button className="win-button" onClick={() => onRestart()}>
-                        Рестарт
-                    </button>
-                </div>
+                <div className="win-buttons"></div>
             )}
         </div>
     );

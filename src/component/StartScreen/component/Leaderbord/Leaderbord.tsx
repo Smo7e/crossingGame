@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import CrossingText from "../CrossingText/CrossingText";
 
 interface LeaderboardProps {
     onClose: Function;
@@ -117,33 +118,37 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ onClose }) => {
     }, []);
 
     return (
-        <div className="leaderboard">
-            <h2>Таблица лидеров</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>№</th>
-                        <th>Имя</th>
-                        <th>Время (сек)</th>
-                        <th>Ходы</th>
-                        <th>Дата</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {leaderboard.map((entry, index) => (
-                        <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>{entry.name}</td>
-                            <td>{entry.time}</td>
-                            <td>{entry.moves}</td>
-                            <td>{new Date(entry.date).toLocaleDateString()}</td>
+        <>
+            <div className="leaderboard">
+                <div style={{ width: "100%", textAlign: "center", fontSize: "3vw" }}>Таблица лидеров</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Имя</th>
+                            <th>Время (сек)</th>
+                            <th>Ходы</th>
+                            <th>Дата</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            <button onClick={() => onClose(false)}>Назад</button>
-            <button onClick={clearLeaderboard}>Очистить таблицу</button>
-        </div>
+                    </thead>
+                    <tbody>
+                        {leaderboard.map((entry, index) => (
+                            <tr key={index}>
+                                <td>{index + 1}</td>
+                                <td>{entry.name}</td>
+                                <td>{entry.time}</td>
+                                <td>{entry.moves}</td>
+                                <td>{new Date(entry.date).toLocaleDateString()}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <button className="leaderbord-button-back" onClick={() => onClose(false)}></button>
+            <button className="leaderbord-button-delete" onClick={clearLeaderboard}></button>
+
+            <CrossingText position={{ top: 2, left: 20 }} />
+        </>
     );
 };
 

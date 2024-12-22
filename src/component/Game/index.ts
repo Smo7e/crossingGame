@@ -1,11 +1,12 @@
 export enum ERole {
-    F1 = "f1",
-    D1 = "d1",
-    F2 = "f2",
-    D2 = "d2",
-    F3 = "f3",
-    D3 = "d3",
-    EMPTY = "empty",
+    H1,
+    H2,
+    H3,
+    G1,
+    G2,
+    G3,
+
+    EMPTY,
 }
 export enum EResultGame {
     WIN,
@@ -41,12 +42,12 @@ window.addEventListener("resize", () => {
 
 export const getDefaultLeftCoastArr = () => {
     return [
-        { id: 1, name: ERole.F1, positionX: positionHuman.leftBank[0], canSwim: true },
-        { id: 2, name: ERole.D1, positionX: positionHuman.leftBank[1], canSwim: true },
-        { id: 3, name: ERole.F2, positionX: positionHuman.leftBank[2], canSwim: true },
-        { id: 4, name: ERole.D2, positionX: positionHuman.leftBank[3], canSwim: true },
-        { id: 5, name: ERole.F3, positionX: positionHuman.leftBank[4], canSwim: true },
-        { id: 6, name: ERole.D3, positionX: positionHuman.leftBank[5], canSwim: true },
+        { id: 1, name: ERole.G1, positionX: positionHuman.leftBank[0], canSwim: true },
+        { id: 2, name: ERole.G2, positionX: positionHuman.leftBank[1], canSwim: true },
+        { id: 3, name: ERole.G3, positionX: positionHuman.leftBank[2], canSwim: true },
+        { id: 4, name: ERole.H1, positionX: positionHuman.leftBank[3], canSwim: true },
+        { id: 5, name: ERole.H2, positionX: positionHuman.leftBank[4], canSwim: true },
+        { id: 6, name: ERole.H3, positionX: positionHuman.leftBank[5], canSwim: true },
     ];
 };
 export const getDefaultEmptyArr = () => {

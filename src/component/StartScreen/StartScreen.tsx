@@ -1,41 +1,38 @@
 import React, { useState } from "react";
 import "./StartScreen.css"; // Импортируем CSS файл для стилей
 import Leaderboard from "./component/Leaderbord/Leaderbord";
+import Rules from "./component/Rules/Rules";
+import CrossingText from "./component/CrossingText/CrossingText";
 
 interface IStartScreenProps {
     onStartGame: Function;
 }
 const StartScreen: React.FC<IStartScreenProps> = ({ onStartGame }) => {
     const [isLeaderbord, setIsLeaderbord] = useState(false);
+    const [isRules, setIsRules] = useState(false);
 
     return (
         <div className="start-screen-container">
-            {!isLeaderbord ? (
+            {isLeaderbord ? (
+                <Leaderboard onClose={setIsLeaderbord} />
+            ) : isRules ? (
+                <Rules onClose={setIsRules} />
+            ) : (
                 <>
                     <div>
-                        <h1 className="start-title">Правила игры</h1>
-                        <p className="rules">
-                            Три девочки, каждая со своим отцом поехали на пикник. Они подошли к небольшой речке. У
-                            берега есть лодка. Требуется перевезти всех людей на другой берег.
-                        </p>
-                        <ul>
-                            <li>Лодка может перевозить не более двух человек за один раз.</li>
-                            <li>Пустая лодка не плавает.</li>
-                            <li>Девочки боятся оставаться с чужим отцом если рядом нет своего.</li>
-                        </ul>
                         <button className="start-button" onClick={() => onStartGame()}>
-                            Играть
+                            Начать игру
                         </button>
                         <button className="leaderbord-button" onClick={() => setIsLeaderbord(true)}>
                             Таблица Лидеров
                         </button>
+                        <button className="rules-button" onClick={() => setIsRules(true)}>
+                            Правила игры
+                        </button>
+                        <CrossingText position={{ top: 0, left: 35 }} />
                     </div>
                 </>
-            ) : (
-                <></>
             )}
-
-            {isLeaderbord ? <Leaderboard onClose={setIsLeaderbord} /> : <></>}
         </div>
     );
 };
