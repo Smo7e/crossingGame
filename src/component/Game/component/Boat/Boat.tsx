@@ -3,16 +3,18 @@ import { IIsGoBoat } from "../../index";
 import "./Boat.css";
 
 interface IBoatProps {
+    go: Function;
     isGoBoat: IIsGoBoat;
+    forceTp: boolean;
 }
 
-const Boat: React.FC<IBoatProps> = ({ isGoBoat }) => {
-    const boatPositionRef = useRef<number>(isGoBoat.needPosition); // Сохраняем начальную позицию лодки
-    const [boatPosition, setBoatPosition] = useState<number>(isGoBoat.needPosition); // Текущее состояние для рендера
-    const animationFrameId = useRef<number | null>(null); // Для хранения ID запроса на анимацию
-    const lastUpdateTime = useRef<number>(0); // Хранение времени последнего обновления
+const Boat: React.FC<IBoatProps> = ({ go, isGoBoat, forceTp }) => {
+    const boatPositionRef = useRef<number>(isGoBoat.needPosition);
+    const [boatPosition, setBoatPosition] = useState<number>(isGoBoat.needPosition);
+    const animationFrameId = useRef<number | null>(null);
+    const lastUpdateTime = useRef<number>(0);
 
-    const speed = 1000; // Скорость лодки (пиксели за кадр)
+    const speed = 1000;
 
     const updateBoatPosition = (timestamp: number) => {
         if (!lastUpdateTime.current) lastUpdateTime.current = timestamp;
@@ -36,6 +38,12 @@ const Boat: React.FC<IBoatProps> = ({ isGoBoat }) => {
     };
 
     useEffect(() => {
+        if (forceTp) {
+            setBoatPosition(isGoBoat.needPosition);
+
+            boatPositionRef.current = isGoBoat.needPosition;
+            return;
+        }
         if (isGoBoat.isGo) {
             animationFrameId.current = requestAnimationFrame(updateBoatPosition);
         } else {
@@ -49,18 +57,18 @@ const Boat: React.FC<IBoatProps> = ({ isGoBoat }) => {
                 cancelAnimationFrame(animationFrameId.current);
             }
         };
-    }, [isGoBoat.needPosition]);
+    }, [isGoBoat.needPosition, forceTp]);
 
     return (
         <img
+            onClick={() => go()}
             src={require("./boat.png")}
-            className="boat-image noselect"
+            className="boat-image"
             style={{
                 position: "absolute",
                 left: `${boatPosition}px`,
                 top: "75vh",
                 zIndex: 200,
-                pointerEvents: "none",
             }}
         />
     );

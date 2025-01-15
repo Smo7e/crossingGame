@@ -9,9 +9,10 @@ interface IHumanProps {
     swap: Function;
     isGoBoat: IIsGoBoat;
     setIsGoBoat: Function;
+    controls: { a: boolean; b: Function };
 }
 
-const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoBoat, setIsGoBoat }) => {
+const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoBoat, setIsGoBoat, controls }) => {
     const [leftOnRightWalk, setLeftOnRightWalk] = useState<boolean>(false);
     const [correctX, setCorrectX] = useState<number>(person.positionX);
     const [stand, spriteGif]: string[] = useSprites(person.name);
@@ -19,12 +20,15 @@ const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoB
     const animationFrameId = useRef<number | null>(null); // Добавляем ref для хранения ID requestAnimationFrame
 
     const asd = () => {
+        if (!controls) return;
         swap(person);
     };
 
     const goBoat = () => {
         const eps = 5;
+
         if (isGoBoat.isGo) {
+            console.log(2);
             if (person.positionX == positionHuman.rightBoat[0] || person.positionX == positionHuman.leftBoat[0]) {
                 setIsGoBoat({ ...isGoBoat, needPosition: correctX });
             } else if (
@@ -37,9 +41,12 @@ const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoB
     };
 
     const calc = () => {
+        if (forceTpPersons) {
+            setIsGoBoat({ ...isGoBoat, isGo: false });
+            setCorrectX(person.positionX);
+            return;
+        }
         goBoat();
-
-        if (forceTpPersons) setCorrectX(person.positionX);
 
         const eps = 2;
         if (Math.abs(correctX - person.positionX) <= eps) {
@@ -47,7 +54,7 @@ const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoB
             setIsGoBoat({ ...isGoBoat, isGo: false });
             person.canSwim = true;
             setCurrentSprite(stand);
-            cancelAnimationFrame(animationFrameId.current!); // Останавливаем анимацию, когда достигнут целевой X
+            cancelAnimationFrame(animationFrameId.current!);
         } else {
             if (!isGoBoat.isGo) {
                 setCurrentSprite(spriteGif);
@@ -66,10 +73,8 @@ const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoB
     };
 
     useEffect(() => {
-        // Запуск анимации
         animationFrameId.current = requestAnimationFrame(calc);
 
-        // Очищаем animationFrame при размонтировании компонента
         return () => {
             if (animationFrameId.current) {
                 cancelAnimationFrame(animationFrameId.current);
