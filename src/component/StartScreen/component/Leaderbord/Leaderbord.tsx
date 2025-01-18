@@ -118,21 +118,26 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ onClose }) => {
 
     return (
         <>
-            <div className="leaderboard">
-                <div style={{ width: "100%", textAlign: "center", fontSize: "3vw" }}>Таблица лидеров</div>
-                <table>
-                    <tbody>
-                        {leaderboard.map((entry, index) => (
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{entry.name}</td>
-                                <td>{entry.time}</td>
-                                <td>{entry.moves}</td>
-                                <td>{new Date(entry.date).toLocaleDateString()}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+            <div style={{ display: "flex", height: "80vh", width: "80vw" }}>
+                <div className="leaderboard">
+                    <div style={{ width: "100%", textAlign: "center", fontSize: "3vw" }}>Таблица лидеров</div>
+                    <table style={{ width: "100%", textAlign: "center" }}>
+                        <tbody>
+                            {leaderboard.map((entry, index) => (
+                                <tr
+                                    key={index}
+                                    style={{ fontSize: "min(2vw, 3vh)", height: "min(6.5vh, 6.5vw)", width: "100%" }}
+                                >
+                                    <td>{index + 1}</td>
+                                    <td>{entry.name}</td>
+                                    <td>{entry.time}</td>
+                                    <td>{entry.moves}</td>
+                                    <td>{new Date(entry.date).toLocaleDateString()}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <button className="leaderbord-button-back" onClick={() => onClose(false)}></button>
             <button className="leaderbord-button-delete" onClick={clearLeaderboard}></button>

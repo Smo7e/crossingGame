@@ -19,6 +19,7 @@ import {
 import { ERole } from ".";
 
 import "./Game.css";
+import { on } from "events";
 
 const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
     const gameTimerRef = useRef<any>(null);
@@ -32,6 +33,7 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
     let [boatPosition, setBoatPosition] = useState<boolean>(false);
     const [forceTpPersons, setforceTpPersons] = useState(false);
     const [isAvailableCotrols, setIsAvailableCotrols] = useState<boolean>(true);
+    const [oneRender, setOneRender] = useState<boolean>(true);
     useEffect(() => {}, [isGoBoat.needPosition]);
     const go = (): void => {
         if (!isAvailableCotrols) return;
@@ -48,7 +50,6 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
                 .concat(rightCoastArr)
                 .filter((el) => el.name != ERole.EMPTY && el.canSwim === true).length !== 3
         ) {
-            console.log(1);
             return;
         }
 
@@ -160,6 +161,8 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
     };
     useEffect(() => {
         const handleResize = () => {
+            if (!oneRender) return;
+            setOneRender((el) => !el);
             setIsAvailableCotrols(false);
             updatePositionsBeforeResize();
             setIsGoBoat({
@@ -172,10 +175,19 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
             setforceTpPersons(true);
 
             setTimeout(() => {
+                updatePositionsBeforeResize();
+                setIsGoBoat({
+                    ...isGoBoat,
+                    needPosition: !isGoBoat.goLeft
+                        ? positionHuman.leftBoat[0]
+                        : positionHuman.rightBank[0] - window.innerWidth * 0.05,
+                    isGo: true,
+                });
+
+                setOneRender(true);
                 setforceTpPersons(false);
                 setIsAvailableCotrols(true);
             }, 1000);
-            forceUpdate();
         };
         window.addEventListener("resize", handleResize);
         return () => {

@@ -3,6 +3,7 @@ import StartScreen from "./component/StartScreen/StartScreen";
 import Game from "./component/Game/Game"; // Ваш компонент игры
 import RiverScene from "./component/Game/component/RiverScene/RiverScene";
 import MusicPlayer from "./component/MusicPlayer/MusicPlayer";
+import Win from "./component/Game/component/ResultGame/Win";
 const App = () => {
     const [isGameStarted, setIsGameStarted] = useState(false);
 
