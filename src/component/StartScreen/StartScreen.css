@@ -10,26 +10,22 @@
 }
 
 .start-title {
-    font-size: 2.5rem; /* Размер шрифта заголовка */
-    margin-bottom: 20px; /* Отступ снизу */
+    font-size: min(7vw, 7vh); /* Размер шрифта заголовка */
 }
 
 .rules {
-    font-size: 1.2rem; /* Размер шрифта для правил */
-    margin-bottom: 30px; /* Отступ снизу */
+    font-size: min(5vw, 5vh); /* Размер шрифта заголовка */
 }
 
 .start-button,
 .leaderbord-button {
-    padding: 15px 30px; /* Отступ внутри кнопки */
-    font-size: 1.5rem; /* Размер шрифта для кнопки */
+    font-size: min(5vh, 5vw); /* Размер шрифта для кнопки */
     color: white; /* Цвет текста кнопки */
     background-color: #007bff; /* Цвет фона кнопки */
     border: none; /* Убираем границу */
-    border-radius: 5px; /* Закругленные углы кнопки */
+    border-radius: 1vw; /* Закругленные углы кнопки */
     cursor: pointer; /* Курсор при наведении */
     transition: background-color 0.3s; /* Плавный переход цвета */
-    margin-bottom: 30px; /* Отступ снизу */
 }
 .leaderbord-button {
     background-color: #22aa61; /* Цвет фона кнопки */
@@ -54,7 +50,6 @@
 .leaderboard th,
 .leaderboard td {
     border: 1px solid #ddd; /* Граница ячеек */
-    padding: 10px; /* Отступ внутри ячеек */
 }
 
 .leaderboard th {

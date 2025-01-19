@@ -24,6 +24,7 @@ const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoB
 
     const goBoat = () => {
         const eps = 5;
+
         if (isGoBoat.isGo) {
             if (person.positionX == positionHuman.rightBoat[0] || person.positionX == positionHuman.leftBoat[0]) {
                 setIsGoBoat({ ...isGoBoat, needPosition: correctX });
@@ -37,9 +38,12 @@ const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoB
     };
 
     const calc = () => {
+        if (forceTpPersons) {
+            setIsGoBoat({ ...isGoBoat, isGo: false });
+            setCorrectX(person.positionX);
+            return;
+        }
         goBoat();
-
-        if (forceTpPersons) setCorrectX(person.positionX);
 
         const eps = 2;
         if (Math.abs(correctX - person.positionX) <= eps) {
@@ -47,7 +51,7 @@ const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoB
             setIsGoBoat({ ...isGoBoat, isGo: false });
             person.canSwim = true;
             setCurrentSprite(stand);
-            cancelAnimationFrame(animationFrameId.current!); // Останавливаем анимацию, когда достигнут целевой X
+            cancelAnimationFrame(animationFrameId.current!);
         } else {
             if (!isGoBoat.isGo) {
                 setCurrentSprite(spriteGif);
@@ -66,10 +70,8 @@ const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoB
     };
 
     useEffect(() => {
-        // Запуск анимации
         animationFrameId.current = requestAnimationFrame(calc);
 
-        // Очищаем animationFrame при размонтировании компонента
         return () => {
             if (animationFrameId.current) {
                 cancelAnimationFrame(animationFrameId.current);
@@ -87,8 +89,8 @@ const Human: React.FC<IHumanProps> = memo(({ forceTpPersons, person, swap, isGoB
                     position: "fixed",
                     left: correctX,
                     top: "70vh",
-                    zIndex: 100,
-                    transform: `scale(${leftOnRightWalk ? 1 : -1}, 1)`,
+                    zIndex: 1000,
+                    transform: `scale(${!leftOnRightWalk ? -1 : 1}, 1)`,
                     height: "5vw",
                     width: "5vw",
                 }}

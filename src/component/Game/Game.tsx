@@ -31,8 +31,11 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
     const [boatArr, setBoatArr] = useState<IPerson[]>(getDefaultEmptyBoad());
     let [boatPosition, setBoatPosition] = useState<boolean>(false);
     const [forceTpPersons, setforceTpPersons] = useState(false);
-    useEffect(() => {}, [isGoBoat.needPosition]);
+    const [oneRender, setOneRender] = useState<boolean>(true);
+
     const go = (): void => {
+        if (stateGame !== EResultGame.PLAYING) return;
+
         makeMove();
 
         if (
@@ -87,6 +90,8 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
         });
     };
     const swap = (person: IPerson): any => {
+        console.log(isGoBoat.isGo);
+        if (stateGame !== EResultGame.PLAYING || isGoBoat.isGo) return;
         makeMove();
         const resultPosition = 0;
         let freePosition: number = 0;
@@ -157,20 +162,33 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
     };
     useEffect(() => {
         const handleResize = () => {
+            console.log(10000);
+            if (!oneRender) return;
+
+            setOneRender((el) => !el);
             updatePositionsBeforeResize();
             setIsGoBoat({
                 ...isGoBoat,
                 needPosition: !isGoBoat.goLeft
                     ? positionHuman.leftBoat[0]
-                    : positionHuman.rightBank[0] - window.innerWidth * 0.15,
+                    : positionHuman.rightBoat[1] - window.innerWidth * 0.05,
                 isGo: true,
             });
             setforceTpPersons(true);
 
             setTimeout(() => {
+                updatePositionsBeforeResize();
+                setIsGoBoat({
+                    ...isGoBoat,
+                    needPosition: !isGoBoat.goLeft
+                        ? positionHuman.leftBoat[0]
+                        : positionHuman.rightBoat[1] - window.innerWidth * 0.05,
+                    isGo: true,
+                });
+
+                setOneRender(true);
                 setforceTpPersons(false);
-            }, 500);
-            forceUpdate();
+            }, 1000);
         };
         window.addEventListener("resize", handleResize);
         return () => {
@@ -185,8 +203,8 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
         setLeftCoast(getDefaultLeftCoastArr());
         setRightCoastArr(getDefaultEmptyArr());
         setBoatArr(getDefaultEmptyBoad());
+        setIsGoBoat({ ...getDefaultIsGoBoat(), isGo: true });
 
-        setIsGoBoat(getDefaultIsGoBoat());
         setBoatPosition(false);
         setforceTpPersons(true);
 
@@ -195,6 +213,7 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
         }, 500);
     };
     const updatePositionsBeforeResize = () => {
+        setforceTpPersons(true);
         leftCoastArr.forEach((person, index) => {
             if (person.name !== ERole.EMPTY) {
                 person.positionX = positionHuman.leftBank[index];
@@ -212,6 +231,10 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
                 person.positionX = !boatPosition ? positionHuman.leftBoat[index] : positionHuman.rightBoat[index];
             }
         });
+        isGoBoat.needPosition = !boatPosition ? positionHuman.leftBoat[1] : positionHuman.rightBoat[1];
+        setTimeout(() => {
+            isGoBoat.needPosition = !boatPosition ? positionHuman.leftBoat[1] : positionHuman.rightBoat[1];
+        }, 2000);
     };
     const makeMove = () => {
         if (gameTimerRef.current) {
@@ -233,6 +256,7 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
             gameTimerRef.current.resetData();
         }
     };
+
     return (
         <>
             {stateGame === EResultGame.PLAYING ? (
@@ -264,8 +288,8 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
                         })}
                 </div>
 
-                <button onClick={() => go()} className="button-49" style={{ zIndex: 50 }}>
-                    Переправить лодку
+                <button onClick={() => go()} className="button-49" style={{ zIndex: 9999999 }}>
+                    Переправить плот
                 </button>
             </div>
             <Boat isGoBoat={isGoBoat} />

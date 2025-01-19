@@ -20,12 +20,12 @@ const MusicPlayer: React.FC = () => {
     useEffect(() => {
         if (audioRef.current) {
             audioRef.current.volume = volume;
-            audioRef.current.play();
+            //audioRef.current.play();
         }
     }, [volume]);
 
     return (
-        <div style={{ position: "absolute", width: "5vw", height: "5vh", right: "5vw", top: "10vh" }}>
+        <div>
             <audio ref={audioRef} src={require("./ChipiChipi.mp3")} loop />
 
             <button
@@ -38,6 +38,10 @@ const MusicPlayer: React.FC = () => {
                     borderRadius: "5px",
                     cursor: "pointer",
                     zIndex: 9999,
+                    position: "absolute",
+                    right: "6vw",
+                    top: "15vh",
+                    fontSize: `min(3vh,3vw)`,
                 }}
             >
                 {"Music "}

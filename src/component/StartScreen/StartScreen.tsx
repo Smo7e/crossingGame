@@ -13,12 +13,12 @@ const StartScreen: React.FC<IStartScreenProps> = ({ onStartGame }) => {
             {!isLeaderbord ? (
                 <>
                     <div>
-                        <h1 className="start-title">Правила игры</h1>
-                        <p className="rules">
+                        <div className="start-title">Правила игры</div>
+                        <div className="rules">
                             Три девочки, каждая со своим отцом поехали на пикник. Они подошли к небольшой речке. У
                             берега есть лодка. Требуется перевезти всех людей на другой берег.
-                        </p>
-                        <ul>
+                        </div>
+                        <ul style={{ fontSize: `min(3vh,3vw)` }}>
                             <li>Лодка может перевозить не более двух человек за один раз.</li>
                             <li>Пустая лодка не плавает.</li>
                             <li>Девочки боятся оставаться с чужим отцом если рядом нет своего.</li>

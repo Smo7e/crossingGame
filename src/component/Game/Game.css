@@ -5,12 +5,11 @@
     height: 5vh;
     left: 40vw;
     bottom: 2vh;
-    font-size: 20px;
+    font-size: min(2vh, 2vw);
     font-family: "Bebas Neue", sans-serif;
     background: linear-gradient(45deg, transparent 5%, #ff013c 5%);
     border: 0;
     color: #fff;
-    letter-spacing: 3px;
     box-shadow: 6px 0px 0px #00e6f6;
     outline: transparent;
     position: absolute;
