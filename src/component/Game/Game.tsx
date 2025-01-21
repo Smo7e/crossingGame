@@ -30,9 +30,11 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
     const [rightCoastArr, setRightCoastArr] = useState<IPerson[]>(getDefaultEmptyArr());
     const [boatArr, setBoatArr] = useState<IPerson[]>(getDefaultEmptyBoad());
     let [boatPosition, setBoatPosition] = useState<boolean>(false);
+    const [oneRender, setOneRender] = useState<boolean>(true);
     const [forceTpPersons, setforceTpPersons] = useState(false);
     useEffect(() => {}, [isGoBoat.needPosition]);
     const go = (): void => {
+        if (stateGame !== EResultGame.PLAYING) return;
         makeMove();
 
         if (
@@ -78,7 +80,7 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
         }
     };
     const swap = (person: IPerson): any => {
-        if (stateGame === EResultGame.LOSE || stateGame === EResultGame.WIN) return;
+        if (stateGame === EResultGame.LOSE || stateGame === EResultGame.WIN || isGoBoat.isGo) return;
         makeMove();
         const resultPosition = 0;
         let freePosition: number = 0;
@@ -149,20 +151,38 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
     };
     useEffect(() => {
         const handleResize = () => {
+            if (!oneRender) return;
+
+            setOneRender((el) => !el);
             updatePositionsBeforeResize();
             setIsGoBoat({
                 ...isGoBoat,
                 needPosition: !isGoBoat.goLeft
                     ? positionHuman.leftBoat[0]
-                    : positionHuman.rightBank[0] - window.innerWidth * 0.15,
+                    : positionHuman.rightBoat[1] - window.innerWidth * 0.05,
                 isGo: true,
             });
-            setforceTpPersons(true);
+            leftCoastArr
+                .concat(rightCoastArr)
+                .concat(boatArr)
+                .forEach((el, i) => {
+                    el.positionX += 20;
+                });
 
             setTimeout(() => {
-                setforceTpPersons(false);
+                setforceTpPersons(true);
+
+                updatePositionsBeforeResize();
+                setIsGoBoat({
+                    ...isGoBoat,
+                    needPosition: !isGoBoat.goLeft
+                        ? positionHuman.leftBoat[0]
+                        : positionHuman.rightBoat[1] - window.innerWidth * 0.05,
+                    isGo: true,
+                });
+
+                setOneRender(true);
             }, 500);
-            forceUpdate();
         };
         window.addEventListener("resize", handleResize);
         return () => {
@@ -204,7 +224,12 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
                 person.positionX = !boatPosition ? positionHuman.leftBoat[index] : positionHuman.rightBoat[index];
             }
         });
+        isGoBoat.needPosition = !boatPosition ? positionHuman.leftBoat[1] : positionHuman.rightBoat[1];
+        setTimeout(() => {
+            isGoBoat.needPosition = !boatPosition ? positionHuman.leftBoat[1] : positionHuman.rightBoat[1];
+        }, 500);
     };
+
     const makeMove = () => {
         if (gameTimerRef.current) {
             gameTimerRef.current.incrementMoves();
@@ -244,6 +269,7 @@ const Game: React.FC<{ onStartGame: Function }> = ({ onStartGame }) => {
                             return elem.name != ERole.EMPTY ? (
                                 <Human
                                     forceTpPersons={forceTpPersons}
+                                    setforceTpPersons={setforceTpPersons}
                                     person={elem}
                                     swap={swap}
                                     key={`${elem.id}-${elem.name}`}

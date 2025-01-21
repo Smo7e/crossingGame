@@ -4,8 +4,10 @@
 }
 
 .boat-image {
-    margin-top: 10px;
-    width: 15vw;
-    height: 7vw;
+    --size: min(18vh, 7vw);
+
+    width: calc(var(--size) * 2.2);
+    height: var(--size);
     transform: scale(-1, 1);
+    margin-top: min(4vh, 3vw);
 }
